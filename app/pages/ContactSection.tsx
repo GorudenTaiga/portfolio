@@ -51,7 +51,7 @@ export default function ContactSection() {
         <>
             <motion.section
                 id="contact"
-                className='py-20 px-4 max-w-3xl mx-auto'
+                className='py-30 px-4 max-w-3xl mx-auto'
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}

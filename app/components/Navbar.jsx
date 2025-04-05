@@ -47,6 +47,7 @@ export default function Navbar() {
       <div className="hidden md:flex gap-6">
         {navLinks.map((link, index) => (
           <a
+            key={index}
             href={link.to}
             className="cursor-pointer text-sm uppercase tracking-wider hover:text-cyan-400 transition"
           >
@@ -72,6 +73,7 @@ export default function Navbar() {
           >
             {navLinks.map((link, index) => (
               <a
+                key={index}
                 href={link.to}
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="cursor-pointer text-sm uppercase tracking-wider hover:text-cyan-400 transition"

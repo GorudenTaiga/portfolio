@@ -21,7 +21,7 @@ export default function Home() {
       <audio autoPlay loop muted={false} className="hidden">
         <source src="/backsound.mp3" type="audio/mpeg"></source>
       </audio>
-      <div className="h-screen snap-y overflow-y-scroll scroll-smooth snap-mandatory">
+      <div className="h-screen snap-y overflow-y-scroll overflow-hidden hide-scrollbar scroll-smooth snap-mandatory">
       <Navbar />
         <section className="h-screen snap-center">
           <Hero />
