@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-// import Typical from 'react-typical';
-import TypewriterComponent from 'typewriter-effect';
+import { Typewriter } from 'react-simple-typewriter';
 
 export default function Hero() {
     return (
@@ -29,14 +28,15 @@ export default function Hero() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
             >
-                <TypewriterComponent
-                    options={{ 
-                        strings: ['Back-end Web Developer', 'Game Developer', 'Programmer', 'Tech Enthusiast'],
-                        autoStart: true,
-                        loop: true,
-                        wrapperClassName: 'span',
-                        delay: 30
-                    }}
+                <Typewriter 
+                    words={['Back-end Web Developer', 'Game Developer', 'Programmer', 'Tech Enthusiast']}
+                    loop={0}
+                    typeSpeed={70}
+                    cursor
+                    cursorColor='#667eea'
+                    cursorStyle='|'
+                    deleteSpeed={50}
+                    delaySpeed={3000}
                 />
             </motion.h2>
 
