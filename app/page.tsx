@@ -18,7 +18,7 @@ export default function Home() {
         <meta name="viewport" content="width=device=width, initial-scale=1" />
       </Head>
 
-      <audio autoPlay loop muted={false} className="hidden">
+      <audio autoPlay loop muted={false} className="hidden" >
         <source src="/backsound.mp3" type="audio/mpeg"></source>
       </audio>
       <div className="h-screen snap-y overflow-y-scroll overflow-hidden hide-scrollbar scroll-smooth snap-mandatory">

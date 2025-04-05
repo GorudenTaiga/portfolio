@@ -57,7 +57,7 @@ export default function Navbar() {
       </div>
 
       <div className="md:hidden">
-        <button onClick={() => setMenuOpen(!menuOpen)} className="text-2xl">
+        <button onClick={() => setMenuOpen(!menuOpen)} className="text-2xl px-4 py-4">
           {menuOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>

@@ -5,7 +5,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen flex flex-col justify-center items-center text-center text-white font-inter px-4"
+      className="min-h-screen flex flex-col justify-center items-center text-center text-white font-inter px-4 py-30"
     >
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
@@ -36,10 +36,6 @@ export default function About() {
         <br />
         From powerful APIs to engaging gameplay — I love the challenge of
         transforming ideas into reality.
-        <br />
-        <br />
-        Technologies are my playground. Creativity is my weapon. Innovation is
-        my drive.
         <br />
         <br />
         Let’s build something extraordinary together.
