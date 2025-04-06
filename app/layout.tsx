@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: 'Portfolio | GorudenTaiga',
     description: 'IT Web Developer & Game Developer Portfolio',
     siteName: 'Portfolio | GorudenTaiga',
-    images: [{url: '/public/images/portfolio_thumbnail.png'}]
+    images: [{url: '/images/portfolio_thumbnail.png'}]
   },
   description: "IT Web Developer & Game Developer Portfolio",
   keywords: ['reactjs', 'nextjs', 'react.js', 'next.js', 'portfolio', 'reza', 'reza arfana', 'reza ar', 'reza arfana rafi', 'gorudentaiga', 'goruden_taiga', 'programmer', 'web programmer', 'developer', 'web developer', 'game developer', 'game programmer', 'back-end engineer', 'backend engineer', 'back end engineer'],
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@portfolio',
     creator: '@goruden_taiga',
-    images: '/public/images/portfolio_thumbnail.png',
+    images: '/images/portfolio_thumbnail.png',
     title: 'Portfolio | GorudenTaiga',
   },
   applicationName: 'Portfolio',
