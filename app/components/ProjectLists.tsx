@@ -10,8 +10,8 @@ const projects = [
         title: 'Portfolio Website',
         sinopsis: 'Personal portfolio built with React, Tailwind, and Framer Motion.',
         description: 'Website Portfolio ini dibuat menggunakan teknologi React.js, TailwindCSS dan JavaScript. Website ini dibuat untuk memperkenalkan diri saya ke semua orang mengenai diri saya, keahlian saya, project-project yang saya miliki, bahkan kita bisa saling menghubungi satu-sama lain melalui platform yang telah tertera dibagian Contact',
-        tags: ['React.js', 'Tailwind CSS', 'Framer Motion', 'Next.js'],
-        techIcons: [<FaReact />, <SiJavascript />, <SiTailwindcss />, <SiNextdotjs />],
+        tags: ['React.js', 'Javascript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+        techIcons: [<FaReact />, <SiJavascript />, <SiNextdotjs />, <SiTailwindcss />],
         date: '2025-04-05',
         liveUrl: null,
         repoUrl: 'https://github.com/GorudenTaiga/portfolio'

@@ -46,7 +46,7 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                         {/* <Image src={project.image} alt={project.title} width={426} height={240} className='w-full h-60 object-cover rounded-xl' /> */}
                         <div className='mb-4'>
                             {activeMedia && activeMedia.endsWith('.mp4') ? (
-                                <video key={activeMedia} controls autoPlay={true} loop={true} src={activeMedia} className='w-full h-60 rounded-lg transition duration-500' />
+                                <video key={activeMedia} controls autoPlay={true} loop={true} src={activeMedia} className='w-full h-60 rounded-lg transition ease-in-out duration-500' />
                             ) : (
                                 <Image
                                     key={activeMedia}
@@ -54,7 +54,7 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                                     alt={activeMedia}
                                     width={426}
                                     height={240}
-                                    className='w-full h-60 object-cover rounded-xl transition duration-500'
+                                    className='w-full h-60 object-cover rounded-xl transition ease-in-out duration-500'
                                 />
                             )}
                         </div>
@@ -65,16 +65,16 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                                     onClick={() => setActiveMedia(item)}
                                     className={`cursor-pointer border rounded-lg p-1 transition duration-300 ${activeMedia === item ? 'border-indigo-400 scale-105' : 'border-transparent'}`} 
                                 >
-                                    {item.endsWith('.mp4') ? (
-                                        <video src={item} key={index} onClick={() => setActiveMedia(item)} className='w-20 h-14 object-cover rounded' />
-                                    ): (
+                                    {item && item.endsWith('.mp4') ? (
+                                        <video src={item} key={index} onClick={() => setActiveMedia(item)} className='w-20 h-14 object-cover rounded transition ease-in-out duration-500' />
+                                    ) : (
                                             <Image
                                                 key={index}
                                                 src={item}
                                                 alt={item}
                                                 width={426}
                                                 height={240}
-                                                className='w-20 h-14 object-cover rounded'
+                                                className='w-20 h-14 object-cover rounded transition ease-in-out duration-500'
                                             />
                                     )}
                                 </div>
