@@ -1,6 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 
 type ModalProps = {
@@ -9,6 +10,16 @@ type ModalProps = {
 }
 
 export default function ProjectModal({ project, onClose }: ModalProps) {
+    const [activeMedia, setActiveMedia] = useState<string>('');
+
+    useEffect(() => {
+        if (project && project.image && project.image.length > 0) {
+            setActiveMedia(project.image[0])
+        }
+    }, [project]);
+
+    if (!project) return null;
+
     return (
         <AnimatePresence>
             {project && (
@@ -32,18 +43,54 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                         >
                             <FiX size={24} />
                         </button>
-                        <Image src={project.image} alt={project.title} width={426} height={240} className='w-full h-60 object-cover rounded-xl' />
+                        {/* <Image src={project.image} alt={project.title} width={426} height={240} className='w-full h-60 object-cover rounded-xl' /> */}
+                        <div className='mb-4'>
+                            {activeMedia && activeMedia.endsWith('.mp4') ? (
+                                <video key={activeMedia} controls autoPlay={true} loop={true} src={activeMedia} className='w-full h-60 rounded-lg transition duration-500' />
+                            ) : (
+                                <Image
+                                    key={activeMedia}
+                                    src={activeMedia}
+                                    alt={activeMedia}
+                                    width={426}
+                                    height={240}
+                                    className='w-full h-60 object-cover rounded-xl transition duration-500'
+                                />
+                            )}
+                        </div>
+                        <div className='flex gap-2 overflow-x-auto overflow-y-hidden'>
+                            {project && project.image.map((item: string, index: number) => (
+                                <div
+                                    key={index}
+                                    onClick={() => setActiveMedia(item)}
+                                    className={`cursor-pointer border rounded-lg p-1 transition duration-300 ${activeMedia === item ? 'border-indigo-400 scale-105' : 'border-transparent'}`} 
+                                >
+                                    {item.endsWith('.mp4') ? (
+                                        <video src={item} key={index} onClick={() => setActiveMedia(item)} className='w-20 h-14 object-cover rounded' />
+                                    ): (
+                                            <Image
+                                                key={index}
+                                                src={item}
+                                                alt={item}
+                                                width={426}
+                                                height={240}
+                                                className='w-20 h-14 object-cover rounded'
+                                            />
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                         <h2 className='text-xl font-bold mt-4'>{project.title}</h2>
                         <p className='text-sm text-zinc-300 mt-2'>{project.description}</p>
                         <div className='flex flex-wrap gap-2 mt-4'>
-                            {project.tags.map((tag: string, index: number) => (
+                            {project && project.tags.map((tag: string, index: number) => (
                                 <span key={index} className='bg-indigo-600 px-2 py-1 rounded-full text-xs'>
                                     {tag}
                                 </span>
                             ))}
                         </div>
                         <div className='flex gap-4 mt-6'>
-                            {project.liveUrl && (
+                            {project && project.liveUrl && (
                                 <a
                                     href={project.liveUrl}
                                     target='_blank'
@@ -53,7 +100,7 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                                     Vew Demo
                                 </a>
                             )}
-                            {project.repoUrl && (
+                            {project && project.repoUrl && (
                                 <a
                                     href={project.repoUrl}
                                     target='_blank'

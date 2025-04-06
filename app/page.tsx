@@ -22,7 +22,7 @@ export default function Home() {
         <source src="/backsound.mp3" type="audio/mpeg"></source>
       </audio>
       <div className="h-screen snap-y overflow-y-scroll overflow-hidden hide-scrollbar scroll-smooth snap-mandatory">
-      <Navbar />
+        <Navbar />
         <section className="h-screen snap-center">
           <Hero />
         </section>
@@ -35,10 +35,8 @@ export default function Home() {
         <section className="h-screen snap-center">
           <ProjectSection projects={projects} />
         </section>
-        <section className="h-screen snap-center">
-          <ContactSection />
-        </section>
         <section className="snap-center">
+          <ContactSection />
           <Footer />
         </section>
       </div>

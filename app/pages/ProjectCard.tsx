@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 type ProjectProps = {
     project: {
-        image: string
+        image: string[]
+        thumbnail: string
         title: string
         sinopsis: string
         description: string
@@ -27,7 +28,7 @@ export default function ProjectCard({ project, onClick }: ProjectProps) {
             transition={{ duration: 0.5 }}
             onClick={onClick}
         >
-            <Image src={project.image} alt={project.title} width={426} height={240} className='w-full h-40 object-cover rounded' />
+            <Image src={project.thumbnail} alt={project.title} width={426} height={240} className='w-full h-40 object-cover rounded' />
             <div className='p-4'>
                 <h3 className='text-lg font-semibold text-white'>{project.title}</h3>
                 <p className='text-sm text-zinc-400 line-clamp-2'>{project.sinopsis}</p>

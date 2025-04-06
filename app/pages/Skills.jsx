@@ -82,7 +82,7 @@ export default function Skills() {
                             </p>
 
                             <div className='w-full bg-zinc-700 h-2 rounded-full mb-2'>
-                                <div className='h-full bg-indigo-400 rounded-full' style={{ width: (selectedSkill.level/100 * 340) }} />
+                                <div className='h-full bg-indigo-400 rounded-full transition-all duration-500 ease-in-out' style={{ width: `${selectedSkill.level}%` }} />
                             </div>
                             <p className='text-sm text-zinc-300'>Proficiency: {selectedSkill.level}%</p>
 
