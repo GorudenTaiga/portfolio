@@ -5,7 +5,7 @@ import { SiJavascript, SiUnrealengine, SiTailwindcss, SiNextdotjs } from 'react-
 
 const projects = [
     {
-        image: ['/images/portfolio_thumbnail.webp', '/videos/portfolio_video1.mp4'],
+        image: ['/images/portfolio_thumbnail.webp', '/videos/portfolio_video1.webp'],
         thumbnail: '/images/portfolio_thumbnail.webp',
         title: 'Portfolio Website',
         sinopsis: 'Personal portfolio built with React, Tailwind, and Framer Motion.',
