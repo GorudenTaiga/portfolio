@@ -11,12 +11,34 @@ type ModalProps = {
 
 export default function ProjectModal({ project, onClose }: ModalProps) {
     const [activeMedia, setActiveMedia] = useState<string>('');
+    const [isMediaPlaying, setIsMediaPlaying] = useState(false)
+
 
     useEffect(() => {
         if (project && project.image && project.image.length > 0) {
             setActiveMedia(project.image[0])
         }
     }, [project]);
+
+    useEffect(() => {
+        const backsound = document.querySelector('audio');
+        const video = document.querySelector('video');
+
+        if (!backsound || !video) return;
+
+        const handlePlay = () => backsound.pause();
+        const handlePause = () => backsound.play();
+
+        video.addEventListener('play', handlePlay);
+        video.addEventListener('pause', handlePause);
+        video.addEventListener('ended', handlePause);
+
+        return () => {
+            video.removeEventListener('play', handlePlay);
+            video.removeEventListener('pause', handlePause);
+            video.removeEventListener('ended', handlePause);
+        }
+    })
 
     if (!project) return null;
 
@@ -45,12 +67,12 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                         </button>
                         {/* <Image src={project.image} alt={project.title} width={426} height={240} className='w-full h-60 object-cover rounded-xl' /> */}
                         <div className='mb-4'>
-                            {activeMedia && activeMedia.endsWith('.mp4') ? (
-                                <video key={activeMedia} controls autoPlay={true} loop={true} src={activeMedia} className='w-full h-60 rounded-lg transition ease-in-out duration-500' />
+                            {activeMedia && activeMedia.endsWith('.webm') ? (
+                                <video key={activeMedia} controls autoPlay={true} loop={true} src={activeMedia} onPlay={() => setIsMediaPlaying(true)} onPause={() => setIsMediaPlaying(false)} onEnded={() => setIsMediaPlaying(false)} className='w-full h-60 rounded-lg transition ease-in-out duration-500' />
                             ) : (
                                 <Image
                                     key={activeMedia}
-                                    src={activeMedia}
+                                    src={activeMedia ? activeMedia : '/images/portfolio_thumbnail.png'}
                                     alt={activeMedia}
                                     width={426}
                                     height={240}
@@ -58,25 +80,27 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                                 />
                             )}
                         </div>
-                        <div className='flex gap-2 overflow-x-auto overflow-y-hidden'>
+                        <div className='flex overflow-y-hidden overflow-x-auto w-full max-w-full scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-track-transparent'>
                             {project && project.image.map((item: string, index: number) => (
                                 <div
                                     key={index}
                                     onClick={() => setActiveMedia(item)}
                                     className={`cursor-pointer border rounded-lg p-1 transition duration-300 ${activeMedia === item ? 'border-indigo-400 scale-105' : 'border-transparent'}`} 
                                 >
-                                    {item && item.endsWith('.mp4') ? (
-                                        <video src={item} key={index} onClick={() => setActiveMedia(item)} className='w-20 h-14 object-cover rounded transition ease-in-out duration-500' />
-                                    ) : (
+                                    <section className="flex-shrink-0 flex-row gap-2 min-w-25 rounded-full">
+                                        {item && item.endsWith('.webm') ? (
+                                            <video src={item} preload='metadata' key={index} onClick={() => setActiveMedia(item)}  autoPlay={false} className='h-14 object-cover rounded transition ease-in-out duration-500' />
+                                        ) : (
                                             <Image
                                                 key={index}
                                                 src={item}
                                                 alt={item}
                                                 width={426}
                                                 height={240}
-                                                className='w-20 h-14 object-cover rounded transition ease-in-out duration-500'
+                                                className='h-14 object-cover rounded transition ease-in-out duration-500'
                                             />
-                                    )}
+                                        )}
+                                    </section>
                                 </div>
                             ))}
                         </div>

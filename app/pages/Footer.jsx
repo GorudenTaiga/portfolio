@@ -12,7 +12,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="w-full bg-zinc-900 text-center text-sm text-zinc-400 py-4 bottom-0 left-0">
+        <footer className="w-full bg-zinc-900 text-center text-sm text-zinc-400 py-4 bottom-0">
             <p className="text-zinc-400 text-sm mb-4">
                 &copy; {new Date().getFullYear()} Reza Arfana Rafi. All rights reserved.
             </p>

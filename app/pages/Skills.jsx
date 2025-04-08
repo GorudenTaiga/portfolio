@@ -23,12 +23,11 @@ export default function Skills() {
     return (
         <motion.section
             id="skills"
-            className='py-30 px-4 max-w-6xl mx-auto mb-30'
+            className='py-10 px-4 max-w-6xl mx-auto block'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
         >
-            <h2 className='text-3xl font-bold text-center text-white mb-12'>Skills</h2>
             <div className='grid grid-cols-4 lg:grid-cols-8 gap-6 pb-[45] justify-center align-center'>
                 {skills.map((skill, index) => (
                     <motion.div

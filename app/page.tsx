@@ -8,19 +8,21 @@ import ContactSection from "./pages/ContactSection";
 import Footer from './pages/Footer';
 import projects from './components/ProjectLists';
 import Head from "next/head";
+import Backsound from "./components/Backsound";
 
 export default function Home() {
+
   return (
-    <>
+    <div>
       <Head>
         <title>Portfolio | Reza Arfana Rafi</title>
         <meta name="description" content="IT Web Developer & Game Developer Portfolio" />
         <meta name="viewport" content="width=device=width, initial-scale=1" />
       </Head>
 
-      <audio autoPlay loop muted={false} className="hidden" >
+      {/* <audio autoPlay loop muted={false} className="hidden" id="backsound">
         <source src="/backsound.mp3" type="audio/mpeg"></source>
-      </audio>
+      </audio> */}
       <div className="h-screen snap-y overflow-y-scroll overflow-hidden hide-scrollbar scroll-smooth snap-mandatory">
         <Navbar />
         <section className="h-screen snap-center">
@@ -28,9 +30,6 @@ export default function Home() {
         </section>
         <section className="h-screen snap-center">
           <About />
-        </section>
-        <section className='h-screen snap-center'>
-          <Skills />
         </section>
         <section className="h-screen snap-center">
           <ProjectSection projects={projects} />
@@ -40,7 +39,6 @@ export default function Home() {
           <Footer />
         </section>
       </div>
-
-    </>
-  );
+    </div>
+  )
 }

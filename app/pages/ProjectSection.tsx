@@ -5,6 +5,7 @@ import ProjectModal from './ProjectModal';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaLaravel, FaReact, FaHtml5, FaGithub } from 'react-icons/fa';
 import { SiJavascript, SiUnrealengine, SiTailwindcss } from 'react-icons/si';
+import Skills from './Skills';
 
 export default function ProjectSection({projects}: {projects: any[]}) {
     const [selectedProject, setSelectedProject] = useState(null);
@@ -34,10 +35,16 @@ export default function ProjectSection({projects}: {projects: any[]}) {
     
     const handleNext = () => {
         setCurrentPage((next) => Math.min(next + 1, totalPage - 1))
+        if (currentPage == (projects.length - 1)) {
+            setCurrentPage(0);
+        }
     };
     
     const handlePrev = () => {
         setCurrentPage((prev) => Math.max(prev - 1, 0))
+        if (currentPage == 0) {
+            setCurrentPage(projects.length - 1)
+        }
     };
 
     useEffect(() => {
@@ -57,7 +64,7 @@ export default function ProjectSection({projects}: {projects: any[]}) {
     return (
         <motion.section
             id='projects'
-            className='py-30 md:py-20 lg:py-20 px-4 max-w-6xl mx-auto'
+            className='py-30 px-4 max-w-6xl h-4 mx-auto'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -80,17 +87,18 @@ export default function ProjectSection({projects}: {projects: any[]}) {
                         onClick={handlePrev}
                         className='bg-zinc-800 text-white px-4 py-2 rounded-lg'
                     >
-                        Previous Page
+                        Previous Project
                     </button>
                     <button
                         onClick={handleNext}
                         className='bg-zinc-800 text-white px-4 py-2 rounded-lg'
                     >
-                        Next Page
+                        Next Project
                     </button>
                 </div>
             )}
             <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+            <Skills />
         </motion.section>
     )
 }
