@@ -23,12 +23,20 @@ export default function Skills() {
     return (
         <motion.section
             id="skills"
-            className='py-10 px-4 max-w-6xl mx-auto block'
+            className='py-25 px-4 max-w-6xl mx-auto block mb-40'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
         >
-            <div className='grid grid-cols-4 lg:grid-cols-8 gap-6 pb-[45] justify-center align-center'>
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="text-3xl md:text-5xl font-bold mb-6 text-center"
+            >
+                Skills
+            </motion.h2>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-6 pb-[45] justify-center align-center'>
                 {skills.map((skill, index) => (
                     <motion.div
                         key={index}
@@ -40,7 +48,7 @@ export default function Skills() {
                             {skill.icon}
                         </div>
                         <p className='text-sm text-white'>{skill.title}</p>
-                        <p className='text-xs text-zinc-400'>Click for more details</p>
+                        <p className='text-xs text-zinc-400'>Click for details</p>
                     </motion.div>
                 ))}
             </div>
@@ -80,10 +88,10 @@ export default function Skills() {
                                 {selectedSkill.description}
                             </p>
 
-                            <div className='w-full bg-zinc-700 h-2 rounded-full mb-2'>
+                            {/* <div className='w-full bg-zinc-700 h-2 rounded-full mb-2'>
                                 <div className='h-full bg-indigo-400 rounded-full transition-all duration-500 ease-in-out' style={{ width: `${selectedSkill.level}%` }} />
                             </div>
-                            <p className='text-sm text-zinc-300'>Proficiency: {selectedSkill.level}%</p>
+                            <p className='text-sm text-zinc-300'>Proficiency: {selectedSkill.level}%</p> */}
 
                             <p className='text-sm text-zinc-400 mb-1'>
                                 Start from: {new Date(selectedSkill.date).toLocaleDateString('id-ID', {

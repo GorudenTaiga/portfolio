@@ -11,6 +11,15 @@ export default function ProjectSection({projects}: {projects: any[]}) {
     const [selectedProject, setSelectedProject] = useState(null);
     const [projectsPerPage, setProjectsPerPage] = useState(3);
     const [currentPage, setCurrentPage] = useState(0);
+    const [direction, setDirection] = useState('');
+
+    const slideVariants = {
+        hiddenRight: { opacity: 0, x: 100 },
+        hiddenLeft: { opacity: 0, x: -100 },
+        visible: { opacity: 1, x: 0 },
+        exitRight: { opacity: 0, x: -100 },
+        exitLeft: { opacity: 0, x: 100 }
+    }
 
     useEffect(() => {
         const handleResize = () => {
@@ -18,10 +27,10 @@ export default function ProjectSection({projects}: {projects: any[]}) {
                 setProjectsPerPage(1);
             } else if (window.innerWidth < 768) {
                 setProjectsPerPage(2);
-            } else if (window.innerWidth < 1024) {
-                setProjectsPerPage(3);
+            } else if (window.innerWidth < 1080) {
+                setProjectsPerPage(2);
             } else {
-                setProjectsPerPage(5);
+                setProjectsPerPage(6);
             }
         };
         handleResize();
@@ -35,16 +44,18 @@ export default function ProjectSection({projects}: {projects: any[]}) {
     
     const handleNext = () => {
         setCurrentPage((next) => Math.min(next + 1, totalPage - 1))
-        if (currentPage == (projects.length - 1)) {
+        if (currentPage == (totalPage - 1)) {
             setCurrentPage(0);
         }
+        setDirection('next');
     };
     
     const handlePrev = () => {
         setCurrentPage((prev) => Math.max(prev - 1, 0))
         if (currentPage == 0) {
-            setCurrentPage(projects.length - 1)
+            setCurrentPage(totalPage - 1)
         }
+        setDirection('previous');
     };
 
     useEffect(() => {
@@ -64,7 +75,7 @@ export default function ProjectSection({projects}: {projects: any[]}) {
     return (
         <motion.section
             id='projects'
-            className='py-30 px-4 max-w-6xl h-4 mx-auto'
+            className='py-25 px-4 max-w-6xl h-4 mx-auto'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -72,12 +83,22 @@ export default function ProjectSection({projects}: {projects: any[]}) {
         >
             <h2 className='text-3xl font-bold text-center text-white mb-12'>Projects</h2>
             <AnimatePresence mode='wait'>
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 justify-center'>
                     {/* {projects.map((project, index) => (
                         <ProjectCard key={index} project={project} onClick={() => setSelectedProject(project)} />
                     ))} */}
                         {displayedProjects.map((project, index) => (
-                            <ProjectCard key={index} project={project} onClick={() => setSelectedProject(project)} />
+                            <motion.div
+                                key={project.id}
+                                variants={slideVariants}
+                                initial={direction === 'next' ? 'hiddenRight' : 'hiddenLeft'}
+                                animate='visible'
+                                exit={direction === 'next' ? 'exitLeft' : 'exitRight'}
+                                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                                className='w-full'
+                            >
+                                <ProjectCard key={index} project={project} onClick={() => setSelectedProject(project)} />
+                            </motion.div>
                         ))}
                 </div>
             </AnimatePresence>
@@ -98,7 +119,6 @@ export default function ProjectSection({projects}: {projects: any[]}) {
                 </div>
             )}
             <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-            <Skills />
         </motion.section>
     )
 }

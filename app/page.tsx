@@ -32,6 +32,9 @@ export default function Home() {
           <About />
         </section>
         <section className="h-screen snap-center">
+          <Skills />
+        </section>
+        <section className="h-screen snap-center">
           <ProjectSection projects={projects} />
         </section>
         <section className="snap-center">

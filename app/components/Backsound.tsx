@@ -9,7 +9,7 @@ export default function Backsound() {
     const toggleMute = () => {
         if (!audioRef.current) return
         if (isMuted) {
-            audioRef.current.play().catch(() => {})
+            audioRef.current.play().catch(() => {setTimeout(() => audioRef.current?.play(), 5000)})
         } else {
             audioRef.current.pause()
         }
@@ -21,7 +21,7 @@ export default function Backsound() {
         if (!audio) return
         audio.volume = 0.2
         audio.loop = true
-        audio.play().catch(() => {})
+        audio.play().catch(() => {setTimeout(() => audio.play(), 5000)})
     }, [])
 
     return (

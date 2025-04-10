@@ -5,7 +5,8 @@ import { SiJavascript, SiUnrealengine, SiTailwindcss, SiNextdotjs, SiBlender, Si
 
 const projects = [
     {
-        image: ['/images/portfolio_thumbnail.webp', '/videos/portfolio_video1.webp', 'https://simpanan.carakan.id/remote.php/webdav/Documentation/OPM/MilitaryCQC%20-%20Unreal%20Editor%202024-07-26%2010-08-30.mp4'],
+        id: 0,
+        image: ['/images/portfolio_thumbnail.webp', '/videos/portfolio_video1.webp'],
         thumbnail: '/images/portfolio_thumbnail.webp',
         title: 'Portfolio Website',
         sinopsis: 'Personal Portfolio',
@@ -17,7 +18,8 @@ const projects = [
         repoUrl: 'https://github.com/GorudenTaiga/portfolio'
     },
     {
-        image: ['/images/jelajah/scr1.jpeg', '/videos/jelajah_vid.webm', '/images/jelajah/scr2.jpeg', '/images/jelajah/scr3.jpeg', '/images/jelajah/scr4.jpeg', '/images/jelajah/scr5.jpeg', '/images/jelajah/scr6.jpeg', '/images/jelajah/scr7.jpeg', '/images/jelajah/scr8.jpeg', '/images/jelajah/scr9.jpeg', '/images/jelajah/scr10.jpeg', '/images/jelajah/scr11.jpeg'],
+        id: 1,
+        image: ['/videos/jelajah_vid.webm', '/images/jelajah/scr1.jpeg', '/images/jelajah/scr2.jpeg', '/images/jelajah/scr3.jpeg', '/images/jelajah/scr4.jpeg', '/images/jelajah/scr5.jpeg', '/images/jelajah/scr6.jpeg', '/images/jelajah/scr7.jpeg', '/images/jelajah/scr8.jpeg', '/images/jelajah/scr9.jpeg', '/images/jelajah/scr10.jpeg', '/images/jelajah/scr11.jpeg'],
         thumbnail: '/images/jelajah/scr1.jpeg',
         title: 'Jelajah Nusantara',
         sinopsis: 'Game menjelajah Indonesia',
@@ -26,6 +28,32 @@ const projects = [
         techIcons: [<SiUnrealengine />, <SiBlender />, <SiGamedeveloper />],
         date: '2023-04-28',
         liveUrl: 'https://nusantara.digital/',
+        repoUrl: null
+    },
+    {
+        id: 2,
+        image: ['/videos/litedex_cinematic.webm', '/images/litedex/litedex_thumbnail.png', '/images/litedex/litedex1.png', '/images/litedex/litedex2.png'],
+        thumbnail: '/images/litedex/litedex_thumbnail.png',
+        title: 'Cyber DEX',
+        sinopsis: 'Game mengenai Cyber Security',
+        description: 'Game Litedex adalah sebuah game yang mana pemain akan melakukan sebuah percobaan peretasan pada sebuah gedung yang bernama Litedex, dan disana player diharuskan untuk menemukan cara supaya player dapat memasuki gedung tersebut, lalu player juga diharuskan untuk mengambil data dari perusahaan Litedex tersebut.',
+        tags: ['Unreal Engine', 'Blender 3D', 'Games', 'Metahuman'],
+        techIcons: [<SiUnrealengine />, <SiBlender />, <SiGamedeveloper />],
+        date: '2023-07-03',
+        liveUrl: null,
+        repoUrl: null
+    },
+    {
+        id: 3,
+        image: ['/videos/pendopo_vid.webm', '/images/pendopo/pendopo1.png', 'images/pendopo/pendopo2.png'],
+        thumbnail: '/images/pendopo/pendopo1.png',
+        title: 'Pendopo',
+        sinopsis: 'Rumah adat Jogja',
+        description: 'Sebuah tempat untuk menunjukkan rumah adat jogja yang bernama Pendopo, dan ini adalah project pertamaku ketika berada di PT. Jivaloka Prasanna Sanasi',
+        tags: ['Unreal Engine', 'Blender 3D', 'Games', 'Metahuman'],
+        techIcons: [<SiUnrealengine />, <SiBlender />, <SiGamedeveloper />],
+        date: '2023-02-28',
+        liveUrl: null,
         repoUrl: null
     }
 ];

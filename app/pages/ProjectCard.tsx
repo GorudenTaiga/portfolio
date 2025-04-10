@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 type ProjectProps = {
     project: {
+        id: number
         image: string[]
         thumbnail: string
         title: string
