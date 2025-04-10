@@ -19,7 +19,7 @@ export default function Hero() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
             >
-                Hello World! I am <span className='text-indigo-500'>Reza Arfana Rafi</span>
+                Hello World! <br /> I am <span className='text-indigo-500'>Reza Arfana Rafi</span>
             </motion.h1>
 
             <motion.h2

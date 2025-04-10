@@ -87,7 +87,7 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                                     onClick={() => setActiveMedia(item)}
                                     className={`cursor-pointer border rounded-lg p-1 transition duration-300 ${activeMedia === item ? 'border-indigo-400 scale-105' : 'border-transparent'}`} 
                                 >
-                                    <section className="flex-shrink-0 flex-row gap-2 min-w-25 rounded-full">
+                                    <section className="flex-shrink-0 flex-row gap-2 min-w-20 max-w-20 rounded-full">
                                         {item && item.endsWith('.webm') ? (
                                             <video src={item} preload='metadata' key={index} onClick={() => setActiveMedia(item)}  autoPlay={false} className='h-14 object-cover rounded transition ease-in-out duration-500' />
                                         ) : (

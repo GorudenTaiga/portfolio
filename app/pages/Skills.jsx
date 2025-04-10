@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaLaravel, FaReact, FaPhp, FaHtml5, FaUnity } from 'react-icons/fa';
 import { SiUnrealengine, SiJavascript, SiTailwindcss, SiCplusplus } from 'react-icons/si';
@@ -7,23 +7,37 @@ import { TbBrandCSharp } from "react-icons/tb";
 import { FiX } from 'react-icons/fi';
 
 const skills = [
-  { icon: <FaLaravel />, title: 'Laravel', level: 87, date: '2022-10', description: 'Saya mulai belajar Laravel pada saat kelas 2 SMK melalui pelajaran sekolah sembari belajar untuk menuju ke LSP (Lembaga Sertifikasi Profesi)' },
-  { icon: <FaPhp />, title: 'PHP', level: 85, date: '2021-12', description: 'Saya mulai belajar PHP ketika saya memasuki SMK kelas 1, disitu saya benar-benar masih awal sekali untuk mempelajari pemrograman Website namun ternyata bahasa ini sangat nyaman digunakan' },
-  { icon: <SiJavascript />, title: 'JavaScript', level: 80, date: '2021-06', description: 'Pada saat awal mula saya belajar pemrograman website, pastinya saya mempelajari bahasa basic seperti Javascript ini salah satunya, bahasa ini sangat nyaman digunakan dan bisa untuk segala hal. Salut lah sama JavaScript ini' },
-  { icon: <FaReact />, title: 'React.js', level: 70, date: '2024-08', description: 'Saya sebenarnya mencoba teknologi React.js ini karena saat itu saya sedang didesak untuk membuat sebuah website Portofolio yang responsive dan interaktif, karena saya selalu mendengar kalau React.js cocok untuk hal ini, maka saya langsung mempelajarinya. Dan ternyata emang worth it banget tech ini buat dipake Front-end Web Development' },
-  { icon: <SiUnrealengine />, title: 'Unreal Engine', level: 96, date: '2022-06', description: 'Sebenarnya sebelum saya mempelajari pemrograman dari sekolah, saya sudah mencoba mempelajari Unreal Engine 4 saat saya SMP Kelas 2, namun saat itu saya hanya mencoba saja tidak terlalu fokus dengan hal tersebut. Saya baru fokus mempelajari Unreal Engine ketika saya beranjak SMK kelas 2, dan pada saat itu saya langsung menggunakan Unreal Engine 5' },
-  { icon: <FaUnity />, title: 'Unity', level: 78, date: '2024-05', description: 'Saya menemukan Unity ketika saya berkunjung ke komunitas Game Developer Indonesia dan saat itu saya juga ingin mencoba teknologi game development selain Unreal Engine, dan ternyata Unity ini sangat ringan bahkan laptop saya yang sudah lawas pun masih bisa memakainya, akhirnya saya mulai menekuni juga untuk Unity ini' },
-  { icon: <SiCplusplus />, title: 'C++', level: 80, date: '2021-10', description: 'Disaat orang lain mempelajari bahasa pemrograman Python sebagai bahasa pemrograman pertama mereka, saya justru malah menggunakan C++ sebagai bahasa pemrograman pertama saya karena sebagai salah satu materi pelajaran dari sekolah saya juga saat itu. Dan ternyata memang worth-it untuk pakai bahasa ini, saya jadi lebih mengetahui seluk beluk dalam pemrograman dan mekanisme yang ada didalamnya' },
-  { icon: <TbBrandCSharp />, title: 'C#', level: 85, date: '2022-08', description: 'Saya menemukan C# (CSharp) ketika saya mempelajarinya disekolah ketika SMK kelas 11. Dilihat dari syntaxnya, bahasa ini sangat mudah untuk dipelajari terutama bagi yang sudah dicekoki oleh C++ sebelumnya, syntaxnya sederhana, mudah dimengerti dan mudah dibaca ' }
+  { icon: <FaLaravel />, title: 'Laravel', level: 87, date: '2022-10', description: 'I first touched Laravel when I was in 11th grade back in vocational high school (SMK). It was part of my school lessons — I learned it while preparing for LSP (kind of like a certification test). It was my first time playing around with a real web framework, and honestly… it was fun!' },
+  { icon: <FaPhp />, title: 'PHP', level: 85, date: '2021-12', description: 'My journey with PHP started even earlier — when I was in 10th grade. That was literally my first step into the world of web programming. At first, I was super clueless, but PHP kinda felt comfortable to use. Simple, clean, and pretty beginner-friendly for me at that time.' },
+  { icon: <SiJavascript />, title: 'JavaScript', level: 80, date: '2021-06', description: 'Of course, when I started learning web dev, one of the very first languages I met was JavaScript. And wow… This language is crazy. You can literally build anything with JS. It’s flexible, powerful, and super fun to play around with. Big respect for JavaScript!' },
+  { icon: <FaReact />, title: 'React.js', level: 70, date: '2024-08', description: 'My adventure with React.js actually started out of necessity. I needed to build a portfolio website that looked cool, responsive, and interactive — and everyone kept saying “Just use React bro, it’s perfect for that.” So I gave it a shot... And yeah, React did not disappoint at all. Totally worth learning for front-end development.' },
+  { icon: <SiUnrealengine />, title: 'Unreal Engine', level: 96, date: '2022-06', description: 'Fun fact, before I even learned programming seriously at school, I actually tried Unreal Engine 4 when I was in 8th grade. But I was just messing around back then — didn’t really focus on it. I only started taking Unreal Engine seriously when I was in 11th grade… and went straight to Unreal Engine 5 because why not?' },
+  { icon: <FaUnity />, title: 'Unity', level: 78, date: '2024-05', description: 'I found Unity when I joined an Indonesian Game Developer community. At that time, I wanted to try other game engines besides Unreal Engine. And I was surprised how lightweight Unity was — even my old laptop could still handle it! That’s why I decided to also dive into Unity.' },
+  { icon: <SiCplusplus />, title: 'C++', level: 80, date: '2021-10', description: 'While most people started their programming journey with Python (the safe choice), I went the hard way — I learned C++ first because it was part of my school lessons. And honestly? No regrets. Learning C++ really taught me a lot about how programming works under the hood.' },
+  { icon: <TbBrandCSharp />, title: 'C#', level: 85, date: '2022-08', description: 'Then I met C# (C-Sharp) during my 11th grade at school. Compared to C++, this language felt like a breath of fresh air. The syntax is clean, easy to read, and very beginner-friendly — especially if you already survived C++ before' }
 ];
 
 export default function Skills() {
     const [selectedSkill, setSelectedSkill] = useState(null);
+    const [small, setSmall] = useState();
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerHeight > 720 || window.innerHeight > 1280) {
+                setSmall(true)
+            }
+            else {
+                setSmall(false)
+            }
+        }
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [])
 
     return (
         <motion.section
             id="skills"
-            className='py-25 px-4 max-w-6xl mx-auto block mb-40'
+            className='py-25 px-4 max-w-6xl mx-auto block mb-40 font-inter justify-center items-center'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -52,6 +66,21 @@ export default function Skills() {
                     </motion.div>
                 ))}
             </div>
+
+            {small && (
+                <motion.p
+                    className='text-lg md:text-xl leading-relaxed text-center mt-15 text-white px-4'
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 1 }}
+                >
+                    ~ "Every line of code writes my story to tomorrow." ~   
+                    <br />
+                    Let’s keep learning, keep building, and keep having fun with code.
+                    <br />
+                    Cheers! 🚀
+                </motion.p>
+            )}
 
             <AnimatePresence>
                 {selectedSkill && (
