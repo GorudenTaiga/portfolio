@@ -30,7 +30,7 @@ export default function ProjectSection({projects}: {projects: any[]}) {
             } else if (window.innerWidth < 1080) {
                 setProjectsPerPage(2);
             } else {
-                setProjectsPerPage(6);
+                setProjectsPerPage(3);
             }
         };
         handleResize();
