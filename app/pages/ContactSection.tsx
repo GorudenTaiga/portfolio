@@ -81,7 +81,7 @@ export default function ContactSection() {
                         name='message'
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder='Yoru message'
+                        placeholder='Your message'
                         required
                         className='p-3 rounded bg-zinc-800 text-white'
                     >
