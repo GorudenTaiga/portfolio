@@ -40,7 +40,7 @@ export default function ProjectCard({ project, onClick }: ProjectProps) {
                         </span>
                     ))}
                 </div>
-                <p className='text-xs text-zinc-500 mt-2'>Created at: {project.date}</p>
+                <p className='text-xs text-zinc-500 mt-2'>Last Updated at: {project.date}</p>
                 <p className='text-xs text-zinc-500 bottom-0 right-0'>Click for details...</p>
             </div>
         </motion.div>

@@ -13,6 +13,11 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
     const [activeMedia, setActiveMedia] = useState<string>('');
     const [isMediaPlaying, setIsMediaPlaying] = useState(false)
 
+    const fallbackThumbnail =
+        typeof window !== 'undefined' && window.location.hostname.includes('rezaar')
+            ? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_reza_thumbnail.webp'
+            : 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp';
+
 
     useEffect(() => {
         if (project && project.image && project.image.length > 0) {
@@ -72,7 +77,7 @@ export default function ProjectModal({ project, onClose }: ModalProps) {
                             ) : (
                                 <Image
                                     key={activeMedia}
-                                    src={activeMedia ? activeMedia : '/images/portfolio_thumbnail.png'}
+                                    src={activeMedia ? activeMedia : fallbackThumbnail}
                                     alt={activeMedia}
                                     width={426}
                                     height={240}

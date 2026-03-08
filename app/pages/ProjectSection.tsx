@@ -7,11 +7,25 @@ import { FaLaravel, FaReact, FaHtml5, FaGithub } from 'react-icons/fa';
 import { SiJavascript, SiUnrealengine, SiTailwindcss } from 'react-icons/si';
 import Skills from './Skills';
 
-export default function ProjectSection({projects}: {projects: any[]}) {
+export default function ProjectSection({projects, portfolioThumbnail}: {projects: any[], portfolioThumbnail?: string}) {
     const [selectedProject, setSelectedProject] = useState(null);
     const [projectsPerPage, setProjectsPerPage] = useState(3);
     const [currentPage, setCurrentPage] = useState(0);
     const [direction, setDirection] = useState('');
+
+    const resolvedProjects = portfolioThumbnail
+        ? projects.map((p) =>
+            p.id === 0
+                ? {
+                    ...p,
+                    thumbnail: portfolioThumbnail,
+                    image: Array.isArray(p.image)
+                        ? [portfolioThumbnail, ...p.image.slice(1)]
+                        : portfolioThumbnail,
+                  }
+                : p
+          )
+        : projects;
 
     const slideVariants = {
         hiddenRight: { opacity: 0, x: 100 },
@@ -39,7 +53,7 @@ export default function ProjectSection({projects}: {projects: any[]}) {
     }, []);
 
     
-    const totalPage = Math.ceil(projects.length / projectsPerPage);
+    const totalPage = Math.ceil(resolvedProjects.length / projectsPerPage);
     
     
     const handleNext = () => {
@@ -59,14 +73,14 @@ export default function ProjectSection({projects}: {projects: any[]}) {
     };
 
     useEffect(() => {
-        const newTotalPage = Math.ceil(projects.length / projectsPerPage);
+        const newTotalPage = Math.ceil(resolvedProjects.length / projectsPerPage);
         if (currentPage > newTotalPage - 1) {
             setCurrentPage(0);
             console.log(currentPage);
         }
-    }, [projectsPerPage, projects.length, currentPage]);
+    }, [projectsPerPage, resolvedProjects.length, currentPage]);
 
-    const displayedProjects = projects.slice(
+    const displayedProjects = resolvedProjects.slice(
         currentPage * projectsPerPage,
         currentPage * projectsPerPage + projectsPerPage
     );
