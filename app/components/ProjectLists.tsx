@@ -35,7 +35,7 @@ const projects = [
     ],
     thumbnail: "https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_thumbnail.webp",
     title: "Portfolio Website",
-    sinopsis: "Personal Portfolio Website – Reza Arfana Rafi",
+    sinopsis: "Personal Portfolio Website",
     description:
       "A personal portfolio website built with Next.js 16, React, and TypeScript. Features smooth page animations via Framer Motion, a typewriter hero section, paginated project showcase with modal viewer, contact form powered by EmailJS, and an ambient background music player. Media assets are hosted on Supabase Storage.",
     tags: ["React.js", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion", "EmailJS", "Supabase"],
