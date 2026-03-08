@@ -2,7 +2,7 @@
 import { FaGithub, FaLinkedin, FaInstagram, FaFacebook, FaDiscord } from "react-icons/fa";
 import { motion } from 'framer-motion';
 
-export default function Footer() {
+export default function Footer({ displayName = 'Reza Arfana Rafi' }) {
     const socials = [
         { icon: <FaGithub />, link: 'https://github.com/GorudenTaiga' },
         { icon: <FaLinkedin />, link: 'https://www.linkedin.com/in/reza-arfana-rafi-301989272/' },
@@ -14,7 +14,7 @@ export default function Footer() {
     return (
         <footer className="w-full bg-zinc-900 text-center text-sm text-zinc-400 py-4 bottom-0">
             <p className="text-zinc-400 text-sm mb-4">
-                &copy; {new Date().getFullYear()} Reza Arfana Rafi. All rights reserved.
+                &copy; {new Date().getFullYear()} {displayName}. All rights reserved.
             </p>
 
             <div className="flex justify-center gap-6">

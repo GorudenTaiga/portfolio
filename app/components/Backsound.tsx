@@ -4,7 +4,7 @@ import { FiVolume2, FiVolumeX } from 'react-icons/fi';
 
 export default function Backsound() {
     const audioRef = useRef<HTMLAudioElement>(null)
-    const [isMuted, setIsMuted] = useState(false)
+    const [isMuted, setIsMuted] = useState(true)
 
     const toggleMute = () => {
         if (!audioRef.current) return
@@ -28,7 +28,7 @@ export default function Backsound() {
         <div className='fixed bottom-4 right-4 z-50'>
             <button onClick={() => toggleMute()} className='bg-zinc-800/80 hover:bg-zinc-700 p-2 rounded-full text-white backdrop-blur'>
                 {isMuted ? <FiVolumeX size={20} /> : <FiVolume2 size={20} />}
-                <audio src="/backsound.mp3" ref={audioRef}></audio>
+                <audio src="https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/audios/backsound.mp3" ref={audioRef}></audio>
             </button>
         </div>
     )

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 
-export default function Hero() {
+export default function Hero({ displayName = 'Reza Arfana Rafi' }) {
     return (
         <motion.section
             id='hero'
@@ -19,7 +19,7 @@ export default function Hero() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
             >
-                Hello World! <br /> I am <span className='text-indigo-500'>Reza Arfana Rafi</span>
+                Hello World! <br /> I am <span className='text-indigo-500'>{displayName}</span>
             </motion.h1>
 
             <motion.h2
