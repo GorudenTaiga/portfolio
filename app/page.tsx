@@ -35,7 +35,7 @@ export default async function Home() {
       </section>
       <section className="snap-center">
         <ContactSection />
-        <Footer displayName={displayName} />
+        <Footer displayName={displayName} isReza={isReza} />
       </section>
     </div>
   )
