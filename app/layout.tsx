@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import './globals.css';
 import Backsound from "./components/Backsound";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -112,6 +113,7 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} antialiased`}
       >
+        <SpeedInsights />
         {children}
         <Backsound />
       </body>
