@@ -21,7 +21,6 @@ export default function Backsound() {
         if (!audio) return
         audio.volume = 0.2
         audio.loop = true
-        audio.play().catch(() => {setTimeout(() => audio.play(), 5000)})
     }, [])
 
     return (
