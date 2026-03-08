@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import {Link} from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMenu, FiX } from 'react-icons/fi'
 import clsx from 'clsx'
