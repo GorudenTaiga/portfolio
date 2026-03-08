@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import Footer from './Footer';
 
 export default function ContactSection() {
     const [formData, setFormData] = useState({
@@ -56,7 +55,7 @@ export default function ContactSection() {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <h2 className='text-3xl font-bold text-center mb-8 text-white'>Contact Me</h2>
+                <h2 className='text-3xl md:text-5xl font-bold text-center mb-8 text-white'>Contact Me</h2>
 
                 <form onSubmit={sendEmail} className='flex flex-col gap-4'>
                     <input
@@ -66,7 +65,7 @@ export default function ContactSection() {
                         onChange={handleChange}
                         placeholder='Your name'
                         required
-                        className='p-3 rounded bg-zinc-800 text-white'
+                        className='p-3 rounded-lg bg-zinc-800 text-white border border-white/10 focus:border-indigo-500/60 focus:outline-none transition-colors'
                     />
                     <input
                         type='email'
@@ -75,15 +74,16 @@ export default function ContactSection() {
                         onChange={handleChange}
                         placeholder='Your email'
                         required
-                        className='p-3 rounded bg-zinc-800 text-white'
+                        className='p-3 rounded-lg bg-zinc-800 text-white border border-white/10 focus:border-indigo-500/60 focus:outline-none transition-colors'
                     />
                     <textarea
                         name='message'
                         value={formData.message}
                         onChange={handleChange}
                         placeholder='Your message'
+                        rows={4}
                         required
-                        className='p-3 rounded bg-zinc-800 text-white'
+                        className='p-3 rounded-lg bg-zinc-800 text-white border border-white/10 focus:border-indigo-500/60 focus:outline-none transition-colors resize-none'
                     >
                     </textarea>
                     <button
