@@ -50,15 +50,17 @@ html, body {
 /* global.css */
 
 :root {
-  /* Responsive Font Size */
-  --fs-xs: clamp(0.75rem, 0.7rem + 0.3vw, 0.875rem);
-  --fs-sm: clamp(0.875rem, 0.8rem + 0.4vw, 1rem);
-  --fs-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
-  --fs-lg: clamp(1.125rem, 1rem + 0.6vw, 1.25rem);
-  --fs-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
-  --fs-2xl: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
-  --fs-3xl: clamp(1.875rem, 1.5rem + 1vw, 2.25rem);
-  --fs-4xl: clamp(2.25rem, 1.7rem + 1.2vw, 3rem);
+  /* Golden Ratio Typography Scale (Scaled down additional 8%) */
+  --fs-min: clamp(0.67rem, 0.60rem + 0.25vw, 0.78rem);           /* ~10.7px */
+  --fs-xs: clamp(0.76rem, 0.68rem + 0.3vw, 0.89rem);           /* ~12.2px */
+  --fs-sm: clamp(0.86rem, 0.77rem + 0.35vw, 0.99rem);           /* ~13.8px */
+  --fs-base: clamp(0.97rem, 0.85rem + 0.4vw, 1.12rem);           /* ~15.5px */
+  --fs-lg: clamp(1.10rem, 0.95rem + 0.45vw, 1.27rem);          /* ~17.6px */
+  --fs-xl: clamp(1.25rem, 1.06rem + 0.5vw, 1.45rem);          /* ~20.0px */
+  --fs-2xl: clamp(1.42rem, 1.17rem + 0.55vw, 1.66rem);         /* ~22.7px */
+  --fs-3xl: clamp(1.62rem, 1.30rem + 0.6vw, 1.90rem);         /* ~25.9px */
+  --fs-4xl: clamp(1.85rem, 1.46rem + 0.65vw, 2.17rem);        /* ~29.6px */
+  --fs-5xl: clamp(2.11rem, 1.63rem + 0.7vw, 2.47rem);         /* ~33.8px */
 }
 
 /* Class Font Universal */
@@ -70,6 +72,7 @@ html, body {
 .text-2xl { font-size: var(--fs-2xl); }
 .text-3xl { font-size: var(--fs-3xl); }
 .text-4xl { font-size: var(--fs-4xl); }
+.text-5xl { font-size: var(--fs-5xl); }
 
 /* global.css */
 html {

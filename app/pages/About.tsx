@@ -1,13 +1,17 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FaReact } from 'react-icons/fa';
-import { SiUnrealengine } from 'react-icons/si';
+import { FaReact, FaDocker, FaGit, FaGithub, FaNpm, FaDownload } from 'react-icons/fa';
+import { SiUnrealengine, SiVercel, SiMysql } from 'react-icons/si';
 
 export default function About() {
   return (
-    <section
+    <motion.section
       id="about"
-      className="h-full flex flex-col justify-center items-center text-center text-white font-inter px-4 py-8 md:py-12"
+      className="min-h-[80vh] flex flex-col justify-center items-center text-center text-white font-inter px-4 py-16 md:py-24"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: "-100px" }}
+      transition={{ duration: 1, ease: 'easeOut' }}
     >
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
@@ -80,6 +84,28 @@ export default function About() {
         </motion.div>
       </div>
 
+      {/* Tools & Workflow */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 max-w-4xl w-full mb-8 md:mb-12"
+      >
+        {[
+          { name: 'Docker', icon: <FaDocker /> },
+          { name: 'Git', icon: <FaGit /> },
+          { name: 'GitHub', icon: <FaGithub /> },
+          { name: 'Vercel', icon: <SiVercel /> },
+          { name: 'npm', icon: <FaNpm /> },
+          { name: 'MySQL', icon: <SiMysql /> },
+        ].map((tool, idx) => (
+          <div key={idx} className="flex flex-col items-center gap-2 p-3 bg-zinc-800/60 border border-white/10 rounded-lg">
+            <div className="text-xl text-indigo-400">{tool.icon}</div>
+            <span className="text-xs text-zinc-300">{tool.name}</span>
+          </div>
+        ))}
+      </motion.div>
+
       {/* Summary */}
       <motion.p
         initial={{ opacity: 0 }}
@@ -93,6 +119,23 @@ export default function About() {
         experience, or a bot that keeps a community running.
         Always learning, always building.
       </motion.p>
-    </section>
+
+      {/* Download Resume CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.6 }}
+        className="mt-8"
+      >
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors"
+        >
+          <FaDownload /> Download Resume
+        </a>
+      </motion.div>
+    </motion.section>
   );
 }

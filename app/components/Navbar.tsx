@@ -5,7 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FiMenu, FiX } from 'react-icons/fi'
 import clsx from 'clsx'
 
-const navLinks = [
+interface NavLink {
+  name: string;
+  to: string;
+}
+
+const navLinks: NavLink[] = [
   { name: 'Home', to: '#hero' },
   { name: 'About', to: '#about' },
   { name: 'Skills', to: '#skills' },
@@ -25,15 +30,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-
-
   return (
     <motion.nav
       className={clsx(
-        'fixed top-4 left-1/2 z-50 flex w-[90%] max-w-4xl -translate-x-1/2 items-center justify-between rounded-full px-6 py-3 text-white backdrop-blur-md',
+        'fixed top-4 left-1/2 z-50 flex w-[90%] max-w-4xl -translate-x-1/2 items-center justify-between rounded-full px-6 py-3 text-white border transition-colors',
         scrolled
-          ? 'bg-white/10 border border-white/20 shadow-lg'
-          : 'bg-transparent'
+          ? 'bg-zinc-900/95 border-white/20 shadow-lg'
+          : 'bg-transparent border-transparent'
       )}
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -56,7 +59,12 @@ export default function Navbar() {
       </div>
 
       <div className="md:hidden">
-        <button onClick={() => setMenuOpen(!menuOpen)} className="text-2xl px-4 py-4">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-2xl px-4 py-4"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+        >
           {menuOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
@@ -68,7 +76,7 @@ export default function Navbar() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 200, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 120 }}
-            className="absolute right-4 top-16 flex flex-col gap-4 rounded-xl border border-white/20 bg-white/10 px-6 py-4 backdrop-blur-md"
+            className="absolute right-4 top-16 flex flex-col gap-4 rounded-xl border border-white/20 bg-zinc-900/95 px-6 py-4"
           >
             {navLinks.map((link, index) => (
               <a

@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import './globals.css';
 import Backsound from "./components/Backsound";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,18 +22,23 @@ const geistMono = Geist_Mono({
 });
 
 const THUMBNAILS = {
-  reza: 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_reza_thumbnail.webp',
-  goruden: 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp',
+  private: process.env.NEXT_PUBLIC_PRIVATETHUMBNAIL,
+  public: process.env.NEXT_PUBLIC_PUBLICTHUMBNAIL,
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') ?? '';
-  const isReza = host.includes('rezaar');
+  
+  const privateUrl = process.env.NEXT_PUBLIC_PRIVATEURL ?? '';
+  const isPrivate = privateUrl && host.includes(privateUrl);
 
-  const displayName = isReza ? 'Reza Arfana Rafi' : 'GorudenTaiga';
-  const siteUrl = isReza ? 'https://rezaar.vercel.app' : 'https://gorudentaiga.vercel.app';
-  const thumbnailUrl = isReza ? THUMBNAILS.reza : THUMBNAILS.goruden;
+  const displayName = isPrivate 
+    ? process.env.NEXT_PUBLIC_PRIVATENAME
+    : process.env.NEXT_PUBLIC_PUBLICNAME;
+  
+  const siteUrl = isPrivate ? 'https://rezaar.vercel.app' : 'https://gorudentaiga.vercel.app';
+  const thumbnailUrl = isPrivate ? THUMBNAILS.private : THUMBNAILS.public;
   const title = `Portfolio | ${displayName}`;
 
   return {
@@ -42,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       default: title,
       template: `%s | ${displayName}`,
     },
-    description: 'IT Web Developer & Game Developer Portfolio – Reza Arfana Rafi (GorudenTaiga)',
+    description: 'IT Web Developer & Game Developer Portfolio – ' + displayName,
     keywords: [
       'reactjs', 'nextjs', 'react.js', 'next.js',
       'portfolio', 'reza', 'reza arfana', 'reza ar', 'reza arfana rafi',
@@ -51,9 +56,9 @@ export async function generateMetadata(): Promise<Metadata> {
       'game developer', 'game programmer',
       'back-end engineer', 'backend engineer', 'back end engineer',
     ],
-    authors: [{ name: 'Reza Arfana Rafi', url: siteUrl }],
-    creator: 'Reza Arfana Rafi',
-    publisher: 'Reza Arfana Rafi',
+    authors: [{ name: displayName, url: siteUrl }],
+    creator: displayName,
+    publisher: displayName,
     applicationName: title,
     category: 'Portfolio',
     classification: 'Portfolio',
@@ -113,6 +118,7 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} antialiased`}
       >
+        <a href="#hero" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-indigo-600 text-white px-4 py-2 rounded z-50">Skip to content</a>
         <SpeedInsights />
         {children}
         <Backsound />

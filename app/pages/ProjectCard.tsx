@@ -2,26 +2,19 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import type { Project } from '../types/project';
 
 type ProjectProps = {
-  project: {
-    id: number;
-    image: string[];
-    thumbnail: string;
-    title: string;
-    sinopsis: string;
-    description: string;
-    tags: string[];
-    techIcons: React.ReactNode[];
-    date: string;
-  };
+  project: Project;
   onClick: () => void;
 };
 
 export default function ProjectCard({ project, onClick }: ProjectProps) {
   return (
-    <motion.div
-      className="bg-zinc-800/60 backdrop-blur-sm border border-white/10 hover:border-indigo-500/40 rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all group"
+    <motion.button
+      type="button"
+      aria-label={`Open project details: ${project.title}`}
+      className="w-full text-left bg-zinc-800/60 backdrop-blur-sm border border-white/10 hover:border-indigo-500/40 rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
       whileHover={{ scale: 1.03 }}
       onClick={onClick}
     >
@@ -40,6 +33,9 @@ export default function ProjectCard({ project, onClick }: ProjectProps) {
         </h3>
         <p className="text-xs md:text-sm text-zinc-400 line-clamp-1 mb-3">
           {project.sinopsis}
+        </p>
+        <p className="text-[11px] md:text-xs text-zinc-300/90 line-clamp-2 mb-3">
+          {project.impact ?? 'Project impact details available in the full case view.'}
         </p>
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap gap-1.5">
@@ -60,6 +56,6 @@ export default function ProjectCard({ project, onClick }: ProjectProps) {
           </p>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }

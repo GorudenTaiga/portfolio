@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import { FiChevronDown } from 'react-icons/fi';
 
-export default function Hero({ displayName = 'Reza Arfana Rafi' }) {
+export default function Hero({ displayName = 'GorudenTaiga' }) {
   return (
     <motion.section
       id="hero"
-      className="h-full flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-zinc-900 to-black text-white font-inter relative"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      className="min-h-screen flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-zinc-900 to-black text-white font-inter relative"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: 'easeOut' }}
     >
       {/* Code-style greeting */}
       <motion.p
@@ -66,6 +66,9 @@ export default function Hero({ displayName = 'Reza Arfana Rafi' }) {
       >
         Crafting performant web applications and immersive game experiences{'\u2014'}with 4+ years of turning ideas into real products.
       </motion.p>
+      <p className="text-xs md:text-sm text-zinc-300 mb-8">
+        Available for web, game, and automation projects.
+      </p>
 
       {/* CTA Buttons */}
       <motion.div
@@ -76,15 +79,15 @@ export default function Hero({ displayName = 'Reza Arfana Rafi' }) {
       >
         <a
           href="#projects"
-          className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors"
+          className="min-h-11 inline-flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
         >
-          View My Projects
+          See My Best Work
         </a>
         <a
           href="#contact"
-          className="bg-zinc-800/60 border border-white/10 hover:border-indigo-500/40 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all"
+          className="min-h-11 inline-flex items-center justify-center bg-zinc-800/60 border border-white/10 hover:border-indigo-500/40 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
         >
-          Get in Touch
+          Hire Me for Your Project
         </a>
       </motion.div>
 
