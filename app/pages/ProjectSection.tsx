@@ -92,7 +92,7 @@ export default function ProjectSection({
   return (
     <motion.section
       id="projects"
-      className="min-h-[80vh] flex flex-col justify-center items-center px-4 max-w-6xl mx-auto font-sans py-16 md:py-24"
+      className="min-h-[80vh] w-full flex flex-col justify-center items-center px-4 max-w-6xl mx-auto font-sans py-16 md:py-24"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

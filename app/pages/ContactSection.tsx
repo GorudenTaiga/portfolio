@@ -83,7 +83,7 @@ export default function ContactSection() {
     return (
         <motion.section
             id="contact"
-            className='min-h-screen flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans'
+            className='min-h-screen w-full flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}

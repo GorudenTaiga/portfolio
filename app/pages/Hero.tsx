@@ -8,7 +8,7 @@ export default function Hero({ displayName = 'GorudenTaiga' }) {
   return (
     <motion.section
       id="hero"
-      className="min-h-screen flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-zinc-900 to-black text-white font-sans relative"
+      className="min-h-screen w-full flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-zinc-900 to-black text-white font-sans relative"
       initial={{ y: 30 }}
       animate={{ y: 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}

@@ -60,7 +60,7 @@ export default function Skills() {
     return (
       <motion.section
         id="skills"
-        className="min-h-[80vh] flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans"
+        className="min-h-[80vh] w-full flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -74,7 +74,7 @@ export default function Skills() {
   return (
     <motion.section
       id="skills"
-      className="min-h-[80vh] flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans"
+      className="min-h-[80vh] w-full flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
