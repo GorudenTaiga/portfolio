@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import type { Project } from '../types/project';
+import { DynamicIcon } from '../lib/icon-resolver';
 
 type ProjectProps = {
   project: Project;
@@ -44,7 +45,7 @@ export default function ProjectCard({ project, onClick }: ProjectProps) {
                 key={index}
                 className="text-indigo-400 text-lg group-hover:text-indigo-300 transition-colors"
               >
-                {icon}
+                <DynamicIcon name={String(icon)} />
               </span>
             ))}
           </div>

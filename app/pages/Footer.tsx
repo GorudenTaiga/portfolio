@@ -15,10 +15,10 @@ export default function Footer({ displayName = 'GorudenTaiga', isPrivate = false
     const socials: Social[] = [
         { icon: <FaGithub />, label: 'GitHub', link: 'https://github.com/GorudenTaiga', public: true, private: true },
         { icon: <FaLinkedin />, label: 'LinkedIn', link: 'https://www.linkedin.com/in/reza-arfana-rafi-301989272/', public: false, private: true },
-        { icon: <FaInstagram />, label: 'Instagram', link: 'https://www.instagram.com/reza_ar2706/', public: false, private: true },
-        { icon: <FaInstagram />, label: 'Instagram', link: 'https://www.instagram.com/gorudentaiga27/', public: true, private: false},
-        { icon: <FaFacebook />, label: 'Facebook', link: 'https://www.facebook.com/profile.php?id=100079582329887', public: true, private: true },
-        { icon: <FaDiscord />, label: 'Discord', link: 'https://discordapp.com/users/gorudentaiga', public: true, private: true },
+        // { icon: <FaInstagram />, label: 'Instagram', link: 'https://www.instagram.com/reza_ar2706/', public: false, private: true },
+        // { icon: <FaInstagram />, label: 'Instagram', link: 'https://www.instagram.com/gorudentaiga27/', public: true, private: false},
+        // { icon: <FaFacebook />, label: 'Facebook', link: 'https://www.facebook.com/profile.php?id=100079582329887', public: true, private: true },
+        { icon: <FaDiscord />, label: 'Discord', link: 'https://discordapp.com/users/goruden_taiga', public: true, private: true },
         { icon: <SiWhatsapp />, label: 'WhatsApp', link: 'https://wa.me/6287743160171', public: true, private: true }
     ];
 

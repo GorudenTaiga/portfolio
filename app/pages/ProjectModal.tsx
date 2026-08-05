@@ -13,11 +13,18 @@ type ModalProps = {
 export default function ProjectModal({ project, onClose }: ModalProps) {
   const [activeMedia, setActiveMedia] = useState<string>('');
 
-  const fallbackThumbnail = typeof window !== 'undefined' 
-    ? window.location.hostname.includes(process.env.NEXT_PUBLIC_PRIVATEURL || 'rezaar')
-      ? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_reza_thumbnail.webp'
-      : 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp'
-    : 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp';
+  const isPortfolio = project?.tags?.some((tag) =>
+    tag.toLowerCase().includes('portfolio')
+  );
+
+  const fallbackThumbnail =
+    isPortfolio && typeof window !== 'undefined'
+      ? window.location.hostname.includes(process.env.NEXT_PUBLIC_PRIVATEURL || 'rezaar')
+        ? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_reza_thumbnail.webp'
+        : 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp'
+      : isPortfolio
+        ? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp'
+        : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
   useEffect(() => {
     if (project && project.image && project.image.length > 0) {

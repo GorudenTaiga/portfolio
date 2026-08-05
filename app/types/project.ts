@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 export type Project = {
   id: number;
   image: string[];
@@ -8,7 +6,7 @@ export type Project = {
   sinopsis: string;
   description: string;
   tags: string[];
-  techIcons: ReactNode[];
+  techIcons: string[];
   date: string;
   liveUrl: string | null;
   repoUrl: string | null;
