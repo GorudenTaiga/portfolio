@@ -11,6 +11,19 @@ type ProjectProps = {
 };
 
 export default function ProjectCard({ project, onClick }: ProjectProps) {
+  const isPortfolio = project.tags?.some((tag) =>
+    tag.toLowerCase().includes('portfolio')
+  );
+
+  const fallbackThumbnail =
+    isPortfolio && typeof window !== 'undefined'
+      ? window.location.hostname.includes(process.env.NEXT_PUBLIC_PRIVATEURL || 'rezaar')
+        ? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_reza_thumbnail.webp'
+        : 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp'
+      : isPortfolio
+        ? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp'
+        : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+
   return (
     <motion.button
       type="button"
@@ -21,7 +34,7 @@ export default function ProjectCard({ project, onClick }: ProjectProps) {
     >
       <div className="overflow-hidden">
         <Image
-          src={project.thumbnail}
+          src={project.thumbnail || fallbackThumbnail}
           alt={project.title}
           width={426}
           height={240}

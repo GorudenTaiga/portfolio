@@ -39,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
   
   const siteUrl = isPrivate ? 'https://rezaar.vercel.app' : 'https://gorudentaiga.vercel.app';
   const thumbnailUrl = (isPrivate ? THUMBNAILS.private : THUMBNAILS.public)
-    ?? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp';
+    ?? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
   const title = `Portfolio | ${displayName}`;
 
   return {
