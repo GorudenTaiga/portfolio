@@ -8,9 +8,9 @@ export default function Hero({ displayName = 'GorudenTaiga' }) {
   return (
     <motion.section
       id="hero"
-      className="min-h-screen flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-zinc-900 to-black text-white font-inter relative"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
+      className="min-h-screen flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-zinc-900 to-black text-white font-sans relative"
+      initial={{ y: 30 }}
+      animate={{ y: 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}
     >
       {/* Code-style greeting */}
@@ -23,15 +23,12 @@ export default function Hero({ displayName = 'GorudenTaiga' }) {
         &lt;Hello World /&gt;
       </motion.p>
 
-      {/* Name */}
-      <motion.h1
+      {/* Name \u2014 static for instant LCP */}
+      <h1
         className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight"
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
       >
         I{'\u2019'}m <span className="text-indigo-500">{displayName}</span>
-      </motion.h1>
+      </h1>
 
       {/* Typewriter Roles */}
       <motion.h2
@@ -47,7 +44,7 @@ export default function Hero({ displayName = 'GorudenTaiga' }) {
             'Full-Stack Developer',
             'Tech Enthusiast',
           ]}
-          loop={0}
+          loop={3}
           typeSpeed={70}
           cursor
           cursorColor="#667eea"
@@ -91,18 +88,13 @@ export default function Hero({ displayName = 'GorudenTaiga' }) {
         </a>
       </motion.div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 8, 0] }}
-        transition={{
-          opacity: { delay: 1.2, duration: 0.6 },
-          y: { delay: 1.5, duration: 1.5, repeat: Infinity, ease: 'easeInOut' },
-        }}
+      {/* Scroll Indicator — CSS animation, no main-thread loop */}
+      <div
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce-soft opacity-0"
+        style={{ animationDelay: '1.2s', animationFillMode: 'forwards' }}
       >
         <FiChevronDown className="text-zinc-600 text-2xl" />
-      </motion.div>
+      </div>
     </motion.section>
   );
 }

@@ -38,6 +38,7 @@ export default function ProjectCard({ project, onClick }: ProjectProps) {
           alt={project.title}
           width={426}
           height={240}
+          sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 33vw"
           className="w-full h-36 md:h-40 object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>

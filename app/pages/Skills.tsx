@@ -60,10 +60,10 @@ export default function Skills() {
     return (
       <motion.section
         id="skills"
-        className="min-h-[80vh] flex flex-col justify-center items-center px-4 py-16 md:py-24 font-inter"
+        className="min-h-[80vh] flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-100px" }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1, ease: 'easeOut' }}
       >
         <p className="text-zinc-400">Loading skills...</p>
@@ -74,10 +74,10 @@ export default function Skills() {
   return (
     <motion.section
       id="skills"
-      className="min-h-[80vh] flex flex-col justify-center items-center px-4 py-16 md:py-24 font-inter"
+      className="min-h-[80vh] flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-100px" }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1, ease: 'easeOut' }}
     >
       <motion.h2

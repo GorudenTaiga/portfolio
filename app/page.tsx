@@ -2,6 +2,8 @@ import { headers } from 'next/headers';
 import HomeClient from './components/HomeClient';
 import { fetchProjects } from './lib/supabase';
 
+export const revalidate = 3600; // ISR: regenerate every hour
+
 export default async function Home() {
   const headersList = await headers();
   const host = headersList.get('host') ?? '';

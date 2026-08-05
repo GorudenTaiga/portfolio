@@ -1,14 +1,16 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import ErrorBoundary from './ErrorBoundary';
 import Hero from '../pages/Hero';
-import About from '../pages/About';
-import Skills from '../pages/Skills';
 import Navbar from './Navbar';
-import ProjectSection from '../pages/ProjectSection';
-import ContactSection from '../pages/ContactSection';
-import Footer from '../pages/Footer';
 import type { Project } from '../types/project';
+
+const About = dynamic(() => import('../pages/About'), { ssr: false });
+const Skills = dynamic(() => import('../pages/Skills'), { ssr: false });
+const ProjectSection = dynamic(() => import('../pages/ProjectSection'), { ssr: false });
+const ContactSection = dynamic(() => import('../pages/ContactSection'), { ssr: false });
+const Footer = dynamic(() => import('../pages/Footer'), { ssr: false });
 
 interface HomeClientProps {
   displayName: string | undefined;

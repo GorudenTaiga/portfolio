@@ -7,10 +7,10 @@ export default function About() {
   return (
     <motion.section
       id="about"
-      className="min-h-[80vh] flex flex-col justify-center items-center text-center text-white font-inter px-4 py-16 md:py-24"
+      className="min-h-[80vh] flex flex-col justify-center items-center text-center text-white font-sans px-4 py-16 md:py-24"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-100px" }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1, ease: 'easeOut' }}
     >
       <motion.h2

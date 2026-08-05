@@ -27,7 +27,7 @@ export default function Footer({ displayName = 'GorudenTaiga', isPrivate = false
             className="w-full bg-zinc-900 text-center text-sm text-zinc-400 py-8 bottom-0"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-50px" }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
         >
             <p className="text-zinc-400 text-sm mb-4">

@@ -83,10 +83,10 @@ export default function ContactSection() {
     return (
         <motion.section
             id="contact"
-            className='min-h-screen flex flex-col justify-center items-center px-4 py-16 md:py-24 font-inter'
+            className='min-h-screen flex flex-col justify-center items-center px-4 py-16 md:py-24 font-sans'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: 'easeOut' }}
         >
                 <h2 className='text-3xl md:text-5xl font-bold text-center mb-8 text-white'>Contact Me</h2>
