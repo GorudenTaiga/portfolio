@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 
@@ -31,7 +31,7 @@ export default function ContactSection() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const sendEmail = (e: React.FormEvent) => {
+    const sendEmail = (e: { preventDefault: () => void }) => {
         e.preventDefault();
         setErrors({});
         if (!validate()) return;

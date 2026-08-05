@@ -19,7 +19,7 @@ export async function fetchProjects() {
     const { data, error } = await supabase
       .from('projects')
       .select('*')
-      .order('updated_at', { ascending: false });
+      .order('date', { ascending: false });
 
     if (error) {
       console.error('Error fetching projects:', error);
