@@ -120,22 +120,24 @@ export default function About() {
         Always learning, always building.
       </motion.p>
 
-      {/* Download Resume CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.6 }}
-        className="mt-8"
-      >
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors"
+      {/* Download Resume CTA — only on private domain */}
+      {typeof window !== 'undefined' && window.location.hostname.includes(process.env.NEXT_PUBLIC_PRIVATEURL || 'rezaar') && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="mt-8"
         >
-          <FaDownload /> Download Resume
-        </a>
-      </motion.div>
+          <a
+            href="https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/Reza%20Arfana%20Rafi%20-%20Backend%20Developer%20-%20Glints%20TapLoker.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors"
+          >
+            <FaDownload /> Download Resume
+          </a>
+        </motion.div>
+      )}
     </motion.section>
   );
 }
