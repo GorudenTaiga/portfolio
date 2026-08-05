@@ -38,15 +38,18 @@ export default function ContactSection() {
 
         setLoading(true);
 
-        const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-        const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-        const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+        const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
+        const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
+        const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
 
-        if (!serviceId || !templateId || !publicKey) {
+        const isPlaceholder = (v: string | undefined) =>
+          !v || v.startsWith('your_') || v === '';
+
+        if (isPlaceholder(serviceId) || isPlaceholder(templateId) || isPlaceholder(publicKey)) {
             setLoading(false);
             setSuccess(false);
-            console.error('EmailJS config is missing. Please check NEXT_PUBLIC_EMAILJS_* variables.');
-            alert('Email service is not configured yet. Please contact site owner.');
+            console.error('EmailJS config is missing or still using placeholder values.');
+            alert('Layanan email belum dikonfigurasi. Silakan isi NEXT_PUBLIC_EMAILJS_* di environment variables.');
             return;
         }
         emailjs.send(
