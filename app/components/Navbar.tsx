@@ -1,96 +1,159 @@
-'use client'
+"use client";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Close, Menu, Moon, Sun } from "./icons";
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FiMenu, FiX } from 'react-icons/fi'
-import clsx from 'clsx'
+const LINKS = [
+  { id: "hero", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Stack" },
+  { id: "projects", label: "Work" },
+  { id: "contact", label: "Contact" },
+];
 
-interface NavLink {
-  name: string;
-  to: string;
-}
-
-const navLinks: NavLink[] = [
-  { name: 'Home', to: '#hero' },
-  { name: 'About', to: '#about' },
-  { name: 'Skills', to: '#skills' },
-  { name: 'Projects', to: '#projects' },
-  { name: 'Contact', to: '#contact' },
-]
-
+/** Floating pill nav with:
+ *  - IntersectionObserver scroll-spy
+ *  - CSS clip-path sliding active indicator (no JS layout per frame)
+ *  - Dark/light theme toggle with localStorage persistence
+ *  - Native <dialog> mobile sheet
+ */
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState("hero");
+  const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const listRef = useRef<HTMLUListElement>(null);
+  const overlayRef = useRef<HTMLUListElement>(null);
+  const sheetRef = useRef<HTMLDialogElement>(null);
 
+  // Read initial theme from document (set by FOUC script in layout.tsx)
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
+  }, []);
+
+  // Scroll-spy: section crossing the upper third of the viewport becomes active
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: "-30% 0px -65% 0px" }
+    );
+    LINKS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  // Sliding pill: clip the highlighted overlay copy to the active link bounds
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    const overlay = overlayRef.current;
+    const link = list?.querySelector<HTMLElement>(`[data-id="${active}"]`);
+    if (!list || !overlay || !link) return;
+    const left = link.offsetLeft;
+    const right = list.offsetWidth - (left + link.offsetWidth);
+    overlay.style.clipPath = `inset(0 ${right}px 0 ${left}px round 999px)`;
+  }, [active]);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    const root = document.documentElement;
+    root.classList.add("theme-fade");
+    root.dataset.theme = next;
+    setTimeout(() => root.classList.remove("theme-fade"), 250);
+    try { localStorage.setItem("theme", next); } catch {}
+    setTheme(next);
+  };
+
+  const closeSheet = () => sheetRef.current?.close();
+  const monogram = "GT";
 
   return (
-    <motion.nav
-      className={clsx(
-        'fixed top-4 left-1/2 z-50 flex w-[90%] max-w-4xl -translate-x-1/2 items-center justify-between rounded-full px-6 py-3 text-white border transition-colors',
-        scrolled
-          ? 'bg-zinc-900/95 border-white/20 shadow-lg'
-          : 'bg-transparent border-transparent'
-      )}
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="text-xl font-bold tracking-widest text-cyan-400">
-        PORTFOLIO
-      </div>
+    <header className={`nav-wrap${scrolled ? " is-scrolled" : ""}`}>
+      <nav className="nav" aria-label="Primary">
+        <a href="#hero" className="monogram" aria-label="GorudenTaiga — back to top">
+          {monogram}
+        </a>
 
-      <div className="hidden md:flex gap-6">
-        {navLinks.map((link, index) => (
-          <a
-            key={index}
-            href={link.to}
-            className="cursor-pointer text-sm uppercase tracking-wider hover:text-cyan-400 transition"
-          >
-            {link.name}
-          </a>
-        ))}
-      </div>
-
-      <div className="md:hidden">
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="text-2xl px-4 py-4"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <FiX /> : <FiMenu />}
-        </button>
-      </div>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ x: 200, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: 200, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 120 }}
-            className="absolute right-4 top-16 flex flex-col gap-4 rounded-xl border border-white/20 bg-zinc-900/95 px-6 py-4"
-          >
-            {navLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.to}
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="cursor-pointer text-sm uppercase tracking-wider hover:text-cyan-400 transition"
-              >
-                {link.name}
-              </a>
+        {/* Desktop links with sliding active indicator */}
+        <div className="nav-links">
+          <ul ref={listRef}>
+            {LINKS.map((l) => (
+              <li key={l.id} data-id={l.id}>
+                <a
+                  href={`#${l.id}`}
+                  aria-current={active === l.id ? "true" : undefined}
+                >
+                  {l.label}
+                </a>
+              </li>
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
-  )
+          </ul>
+          {/* Highlighted copy — clipped to active link via clip-path */}
+          <ul ref={overlayRef} className="nav-overlay" aria-hidden="true">
+            {LINKS.map((l) => (
+              <li key={l.id}><span>{l.label}</span></li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="nav-actions">
+          <button
+            className="icon-btn"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+          >
+            {theme === "dark" ? <Sun /> : <Moon />}
+          </button>
+          <a href="#contact" className="btn btn-primary btn-sm hide-mobile">
+            Get in touch
+          </a>
+          <button
+            className="icon-btn show-mobile"
+            onClick={() => sheetRef.current?.showModal()}
+            aria-label="Open menu"
+          >
+            <Menu />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile sheet — native <dialog> for focus-trap + backdrop */}
+      <dialog
+        ref={sheetRef}
+        className="sheet"
+        aria-label="Menu"
+        onClick={(e) => e.target === e.currentTarget && closeSheet()}
+      >
+        <div className="sheet-inner">
+          <div className="sheet-head">
+            <span className="monogram">{monogram}</span>
+            <button className="icon-btn" onClick={closeSheet} aria-label="Close menu" autoFocus>
+              <Close />
+            </button>
+          </div>
+          <ul>
+            {LINKS.map((l, i) => (
+              <li key={l.id} style={{ "--i": i } as React.CSSProperties}>
+                <a
+                  href={`#${l.id}`}
+                  onClick={closeSheet}
+                  aria-current={active === l.id ? "true" : undefined}
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href="#contact" onClick={closeSheet} className="btn btn-primary">
+            Get in touch
+          </a>
+        </div>
+      </dialog>
+    </header>
+  );
 }

@@ -4,11 +4,12 @@ import dynamic from 'next/dynamic';
 import ErrorBoundary from './ErrorBoundary';
 import Hero from '../pages/Hero';
 import Navbar from './Navbar';
+import RevealObserver from './RevealObserver';
 import type { Project } from '../types/project';
 
-// ponytail: ssr:true keeps HTML in initial response, no layout shift.
-// Fallback divs match section min-height so CLS stays zero.
-const sectionFallback = <div className="min-h-[80vh]" />;
+// Dynamic imports — keeps initial bundle small; RevealObserver MutationObserver
+// picks up [data-reveal] elements as each section hydrates.
+const sectionFallback = <div style={{ minHeight: '80vh' }} />;
 
 const About = dynamic(() => import('../pages/About'), { loading: () => sectionFallback });
 const Skills = dynamic(() => import('../pages/Skills'), { loading: () => sectionFallback });
@@ -26,16 +27,17 @@ interface HomeClientProps {
 export default function HomeClient({ displayName, portfolioThumbnail, isPrivate = false, projects }: HomeClientProps) {
   return (
     <ErrorBoundary>
-      <div className="min-h-screen w-full overflow-hidden">
+      <RevealObserver>
         <Navbar />
         <Hero displayName={displayName} />
-        <About />
+        <About isPrivate={isPrivate} />
         <Skills />
         <ProjectSection projects={projects} portfolioThumbnail={portfolioThumbnail} />
         <ContactSection />
         <Footer displayName={displayName} isPrivate={isPrivate} />
-      </div>
+      </RevealObserver>
     </ErrorBoundary>
   );
 }
+
 

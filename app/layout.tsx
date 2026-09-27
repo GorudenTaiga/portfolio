@@ -109,14 +109,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <head>
         <link rel="preconnect" href="https://rqbcrttxfhxmcaxiropg.supabase.co" crossOrigin="anonymous" />
+        {/* FOUC-prevention: set theme before first paint to avoid flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var t = localStorage.getItem('theme');
+                document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark';
+              } catch(e) {}
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <a href="#hero" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-indigo-600 text-white px-4 py-2 rounded z-50">Skip to content</a>
+        <a href="#hero" className="skip-link">Skip to content</a>
         <SpeedInsights />
         {children}
         <Backsound />

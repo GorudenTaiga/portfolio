@@ -1,100 +1,73 @@
-'use client';
+"use client";
+import HeroPanel from "../components/HeroPanel";
+import { ArrowRight } from "../components/icons";
 
-import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
-import { FiChevronDown } from 'react-icons/fi';
+interface HeroProps {
+  displayName?: string;
+}
 
-export default function Hero({ displayName = 'GorudenTaiga' }) {
+/** Hero section — two-column grid (7:5), left=copy, right=animated code panel.
+ *  Staggered .load animation via CSS --i custom property.
+ *  displayName switches between "Reza Arfana Rafi" (private) and "GorudenTaiga" (public).
+ */
+export default function Hero({ displayName = "GorudenTaiga" }: HeroProps) {
   return (
-    <motion.section
-      id="hero"
-      className="min-h-screen w-full flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-zinc-900 to-black text-white font-sans relative"
-      initial={{ y: 30 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 1, ease: 'easeOut' }}
-    >
-      {/* Code-style greeting */}
-      <motion.p
-        className="text-sm md:text-base text-cyan-400 font-mono tracking-wider mb-4"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-      >
-        &lt;Hello World /&gt;
-      </motion.p>
+    <section id="hero" className="hero" aria-labelledby="hero-title">
+      <div className="container hero-grid">
+        {/* Left — text copy */}
+        <div className="hero-copy">
+          <p className="eyebrow load" style={{ "--i": 0 } as React.CSSProperties}>
+            Full-Stack Systems &amp; Game Programming
+          </p>
 
-      {/* Name \u2014 static for instant LCP */}
-      <h1
-        className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight"
-      >
-        I{'\u2019'}m <span className="text-indigo-500">{displayName}</span>
-      </h1>
+          <h1
+            id="hero-title"
+            className="display load"
+            style={{ "--i": 1 } as React.CSSProperties}
+          >
+            I&apos;m <span className="accent">{displayName}</span>
+          </h1>
 
-      {/* Typewriter Roles */}
-      <motion.h2
-        className="text-lg md:text-2xl lg:text-3xl text-zinc-400 mb-6 h-9 md:h-10"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-      >
-        <Typewriter
-          words={[
-            'Back-end Web Developer',
-            'Game Developer',
-            'Full-Stack Developer',
-            'Tech Enthusiast',
-          ]}
-          loop={3}
-          typeSpeed={70}
-          cursor
-          cursorColor="#667eea"
-          cursorStyle="|"
-          deleteSpeed={50}
-          delaySpeed={3000}
-        />
-      </motion.h2>
+          <p
+            className="lede load"
+            style={{ "--i": 2 } as React.CSSProperties}
+          >
+            Software developer based in Yogyakarta. Specializing in high-throughput
+            Laravel backends, reactive Next.js applications, and native C++ gameplay systems
+            in Unreal Engine 5.
+          </p>
 
-      {/* Tagline */}
-      <motion.p
-        className="max-w-2xl text-sm md:text-base text-zinc-400 leading-relaxed mb-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7, duration: 0.8 }}
-      >
-        Crafting performant web applications and immersive game experiences{'\u2014'}with 4+ years of turning ideas into real products.
-      </motion.p>
-      <p className="text-xs md:text-sm text-zinc-300 mb-8">
-        Available for web, game, and automation projects.
-      </p>
+          <div
+            className="cta-row load"
+            style={{ "--i": 3 } as React.CSSProperties}
+          >
+            <a href="#projects" className="btn btn-primary">
+              View projects <ArrowRight width={18} height={18} />
+            </a>
+            <a href="#contact" className="btn btn-ghost">
+              Get in touch
+            </a>
+          </div>
 
-      {/* CTA Buttons */}
-      <motion.div
-        className="flex flex-col sm:flex-row gap-3 sm:gap-4"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9, duration: 0.8 }}
-      >
-        <a
-          href="#projects"
-          className="min-h-11 inline-flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
+          <p
+            className="meta-row load"
+            style={{ "--i": 4 } as React.CSSProperties}
+          >
+            <span className="status-dot" aria-hidden="true" />
+            <span>Yogyakarta, ID</span>
+            <span aria-hidden="true">·</span>
+            <span>Available for projects & collaboration</span>
+          </p>
+        </div>
+
+        {/* Right — animated code editor panel */}
+        <div
+          className="hero-visual load"
+          style={{ "--i": 4 } as React.CSSProperties}
         >
-          See My Best Work
-        </a>
-        <a
-          href="#contact"
-          className="min-h-11 inline-flex items-center justify-center bg-zinc-800/60 border border-white/10 hover:border-indigo-500/40 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
-        >
-          Hire Me for Your Project
-        </a>
-      </motion.div>
-
-      {/* Scroll Indicator — CSS animation, no main-thread loop */}
-      <div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce-soft opacity-0"
-        style={{ animationDelay: '1.2s', animationFillMode: 'forwards' }}
-      >
-        <FiChevronDown className="text-zinc-600 text-2xl" />
+          <HeroPanel />
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

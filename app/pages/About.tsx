@@ -1,143 +1,150 @@
-'use client';
-import { motion } from 'framer-motion';
-import { FaReact, FaDocker, FaGit, FaGithub, FaNpm, FaDownload } from 'react-icons/fa';
-import { SiUnrealengine, SiVercel, SiMysql } from 'react-icons/si';
+"use client";
+import { Download } from "../components/icons";
 
-export default function About() {
+const STATS = [
+  { label: "Production experience", value: "4+ years" },
+  { label: "Core backend scale", value: "6M+ lines" },
+  { label: "Primary game engine", value: "Unreal 5" },
+];
+
+function WebVisual() {
   return (
-    <motion.section
-      id="about"
-      className="min-h-[80vh] w-full flex flex-col justify-center items-center text-center text-white font-sans px-4 py-16 md:py-24"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1, ease: 'easeOut' }}
-    >
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-3xl md:text-5xl font-bold mb-6"
-      >
-        About Me
-      </motion.h2>
+    <div className="viz viz-web" aria-hidden="true">
+      <div className="viz-bar">
+        <span className="viz-breadcrumb">
+          <span>HTTP</span>
+          <span className="muted">/</span>
+          <span>api.service.local/v1/system</span>
+        </span>
+        <span className="viz-badge">200 OK</span>
+      </div>
+      <div className="viz-code">
+        <div className="viz-code-line"><span className="kw">GET</span> <span className="val">/api/v1/health</span></div>
+        <div className="viz-code-line"><span className="str">&quot;status&quot;:</span> <span className="val">&quot;healthy&quot;</span></div>
+        <div className="viz-code-line"><span className="str">&quot;stack&quot;:</span> <span className="val">&quot;Laravel 11 · Next.js 16&quot;</span></div>
+        <div className="viz-code-line"><span className="str">&quot;database&quot;:</span> <span className="val">&quot;PostgreSQL · Supabase&quot;</span></div>
+        <div className="viz-code-line"><span className="str">&quot;runtime&quot;:</span> <span className="val">&quot;Docker Containerized&quot;</span></div>
+      </div>
+    </div>
+  );
+}
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 1 }}
-        className="max-w-3xl text-base md:text-xl leading-relaxed mb-8 md:mb-12"
-      >
-        <span className="text-cyan-400">&lt;Hello World /&gt;</span>
-        <br />
-        <br />
-        I{'\u2019'}m a vocational high school (SMK) graduate who started coding back in
-        2021 {'\u2014'} and never really stopped since. What began as school lessons in
-        C++ and PHP quickly grew into a real passion for building things, both
-        on the web and inside game engines.
-      </motion.p>
+function GameVisual() {
+  return (
+    <div className="viz viz-game" aria-hidden="true">
+      <div className="viz-bar">
+        <span className="viz-breadcrumb">
+          <span>Source</span>
+          <span className="muted">&gt;</span>
+          <span>Player</span>
+          <span className="muted">&gt;</span>
+          <span>TaigaCharacter.h</span>
+        </span>
+        <span className="viz-badge" style={{ color: "var(--accent)", background: "color-mix(in srgb, var(--accent) 14%, transparent)" }}>
+          C++20
+        </span>
+      </div>
+      <div className="viz-code">
+        <div className="viz-code-line"><span className="kw">#pragma once</span></div>
+        <div className="viz-code-line"><span className="kw">UCLASS</span>(config=Game)</div>
+        <div className="viz-code-line"><span className="kw">class</span> <span className="val">ATaigaCharacter</span> : <span className="kw">public</span> ACharacter &#123;</div>
+        <div className="viz-code-line">&nbsp;&nbsp;<span className="kw">GENERATED_BODY</span>()</div>
+        <div className="viz-code-line">&nbsp;&nbsp;<span className="str">UPROPERTY</span>(BlueprintReadOnly)</div>
+        <div className="viz-code-line">&nbsp;&nbsp;<span className="val">UCombatComponent*</span> CombatSys;</div>
+        <div className="viz-code-line">&#125;;</div>
+      </div>
+    </div>
+  );
+}
 
-      {/* Expertise Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-4xl w-full mb-8 md:mb-12">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="bg-zinc-800/60 backdrop-blur-sm border border-white/10 rounded-xl p-5 md:p-6 text-left hover:border-indigo-500/40 transition-all"
-        >
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl">
-              <FaReact />
-            </div>
-            <h3 className="text-base md:text-lg font-semibold">Web Development</h3>
-          </div>
-          <p className="text-zinc-300 text-xs md:text-sm leading-relaxed">
-            Building full-stack applications with{' '}
-            <span className="text-indigo-400">Laravel</span>,{' '}
-            <span className="text-indigo-400">React</span>,{' '}
-            <span className="text-indigo-400">Next.js</span>, and{' '}
-            <span className="text-indigo-400">TypeScript</span>
-            {' '}{'\u2014'} from library management systems and e-commerce platforms to
-            Discord bots and WhatsApp automation.
+interface AboutProps {
+  isPrivate?: boolean;
+}
+
+export default function About({ isPrivate = false }: AboutProps) {
+  return (
+    <section id="about" className="section" aria-labelledby="about-title">
+      {/* Top — eyebrow + lede + stats */}
+      <div className="container about-grid">
+        <p className="eyebrow sticky-label">About</p>
+        <div>
+          <h2 id="about-title" className="sr-only">About</h2>
+          <p className="about-lede" data-reveal>
+            Software engineer with 4+ years of production experience bridging two disciplines:
+            large-scale backend architecture and native real-time game development.
+            Focused on database query efficiency, clean domain boundaries, and high-performance gameplay systems.
           </p>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="bg-zinc-800/60 backdrop-blur-sm border border-white/10 rounded-xl p-5 md:p-6 text-left hover:border-indigo-500/40 transition-all"
-        >
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl">
-              <SiUnrealengine />
+          <dl className="stats" data-reveal>
+            {STATS.map(({ label, value }) => (
+              <div key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          {/* Resume download — shown only on private (rezaar) domain */}
+          {isPrivate && (
+            <div style={{ marginTop: "2rem" }} data-reveal>
+              <a
+                href="https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/Reza%20Arfana%20Rafi%20-%20Backend%20Developer%20-%20Glints%20TapLoker.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <Download width={16} height={16} />
+                Download Resume
+              </a>
             </div>
-            <h3 className="text-base md:text-lg font-semibold">Game Development</h3>
-          </div>
-          <p className="text-zinc-300 text-xs md:text-sm leading-relaxed">
-            Years of experience with{' '}
-            <span className="text-indigo-400">Unreal Engine 5</span> and{' '}
-            <span className="text-indigo-400">Unity</span>
-            {' '}{'\u2014'} creating cultural exploration games, RPG combat systems,
-            cyber security simulations, and virtual architectural experiences.
-          </p>
-        </motion.div>
+          )}
+        </div>
       </div>
 
-      {/* Tools & Workflow */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 max-w-4xl w-full mb-8 md:mb-12"
-      >
-        {[
-          { name: 'Docker', icon: <FaDocker /> },
-          { name: 'Git', icon: <FaGit /> },
-          { name: 'GitHub', icon: <FaGithub /> },
-          { name: 'Vercel', icon: <SiVercel /> },
-          { name: 'npm', icon: <FaNpm /> },
-          { name: 'MySQL', icon: <SiMysql /> },
-        ].map((tool, idx) => (
-          <div key={idx} className="flex flex-col items-center gap-2 p-3 bg-zinc-800/60 border border-white/10 rounded-lg">
-            <div className="text-xl text-indigo-400">{tool.icon}</div>
-            <span className="text-xs text-zinc-300">{tool.name}</span>
+      {/* Dual-Pillar Engineering Architecture */}
+      <div className="container dual-pillars" data-reveal>
+        {/* Pillar 01: Web & Distributed Systems */}
+        <article className="pillar-card">
+          <div className="pillar-header">
+            <span className="pillar-badge mono">PILLAR 01 // ARCHITECTURE</span>
+            <h3 className="pillar-title">Web &amp; Distributed Architecture</h3>
+            <p className="pillar-desc">
+              Designing normalized PostgreSQL schemas, high-throughput queue workers, and clean REST APIs with Laravel and Docker, coupled with reactive Next.js client applications.
+            </p>
           </div>
-        ))}
-      </motion.div>
+          <div className="pillar-visual">
+            <WebVisual />
+          </div>
+          <ul className="tags" aria-label="Web Architecture tools">
+            <li>Laravel 11</li>
+            <li>Next.js 16</li>
+            <li>PostgreSQL</li>
+            <li>Docker</li>
+            <li>Supabase</li>
+          </ul>
+        </article>
 
-      {/* Summary */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.4, duration: 1 }}
-        className="max-w-3xl text-sm md:text-lg text-zinc-300 leading-relaxed"
-      >
-        With around <span className="text-white font-semibold">4+ years</span> of
-        hands-on experience, I enjoy turning ideas into real, functional
-        products {'\u2014'} whether it{'\u2019'}s a responsive website, an immersive 3D
-        experience, or a bot that keeps a community running.
-        Always learning, always building.
-      </motion.p>
-
-      {/* Download Resume CTA — only on private domain */}
-      {typeof window !== 'undefined' && window.location.hostname.includes(process.env.NEXT_PUBLIC_PRIVATEURL || 'rezaar') && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="mt-8"
-        >
-          <a
-            href="https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/Reza%20Arfana%20Rafi%20-%20Backend%20Developer%20-%20Glints%20TapLoker.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors"
-          >
-            <FaDownload /> Download Resume
-          </a>
-        </motion.div>
-      )}
-    </motion.section>
+        {/* Pillar 02: Game Systems & C++ */}
+        <article className="pillar-card">
+          <div className="pillar-header">
+            <span className="pillar-badge mono">PILLAR 02 // ENGINE</span>
+            <h3 className="pillar-title">Real-Time Gameplay &amp; C++ Systems</h3>
+            <p className="pillar-desc">
+              Architecting character state machines, custom actor components, and combat systems in Unreal Engine 5 using native C++, along with interactive simulation environments in Unity.
+            </p>
+          </div>
+          <div className="pillar-visual">
+            <GameVisual />
+          </div>
+          <ul className="tags" aria-label="Game Development tools">
+            <li>Unreal Engine 5</li>
+            <li>Native C++</li>
+            <li>Blueprints</li>
+            <li>GAS Framework</li>
+            <li>Unity 3D</li>
+          </ul>
+        </article>
+      </div>
+    </section>
   );
 }
