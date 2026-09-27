@@ -6,6 +6,7 @@ import Hero from '../pages/Hero';
 import Navbar from './Navbar';
 import RevealObserver from './RevealObserver';
 import type { Project } from '../types/project';
+import type { Skill } from '../pages/Skills';
 
 // Dynamic imports — keeps initial bundle small; RevealObserver MutationObserver
 // picks up [data-reveal] elements as each section hydrates.
@@ -22,16 +23,17 @@ interface HomeClientProps {
   portfolioThumbnail: string;
   isPrivate?: boolean;
   projects: Project[];
+  skills?: Skill[];
 }
 
-export default function HomeClient({ displayName, portfolioThumbnail, isPrivate = false, projects }: HomeClientProps) {
+export default function HomeClient({ displayName, portfolioThumbnail, isPrivate = false, projects, skills }: HomeClientProps) {
   return (
     <ErrorBoundary>
       <RevealObserver>
         <Navbar />
         <Hero displayName={displayName} />
         <About isPrivate={isPrivate} />
-        <Skills />
+        <Skills skills={skills} />
         <ProjectSection projects={projects} portfolioThumbnail={portfolioThumbnail} />
         <ContactSection />
         <Footer displayName={displayName} isPrivate={isPrivate} />

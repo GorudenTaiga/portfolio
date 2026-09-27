@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Close } from "../components/icons";
 import { fetchSkills } from "../lib/supabase";
 
-interface Skill {
+export interface Skill {
   id: number;
   title: string;
   icon: string;
@@ -160,19 +160,22 @@ export function SkillsSkeleton() {
   );
 }
 
-export default function Skills() {
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function Skills({ skills: initialSkills }: { skills?: Skill[] }) {
+  const [skills, setSkills] = useState<Skill[]>(initialSkills ?? []);
+  const [loading, setLoading] = useState(!initialSkills || initialSkills.length === 0);
   const [selected, setSelected] = useState<Skill | null>(null);
 
   useEffect(() => {
+    if (initialSkills && initialSkills.length > 0) {
+      setSkills(initialSkills);
+      setLoading(false);
+      return;
+    }
     fetchSkills()
       .then((data) => setSkills(data as Skill[]))
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <SkillsSkeleton />;
+  }, [initialSkills]);
 
   const grouped = groupBy(
     skills.map((s) => ({ ...s, category: s.category ?? inferCategory(s.title) })),
@@ -180,19 +183,32 @@ export default function Skills() {
   );
 
   return (
-    <>
-      <section id="skills" className="section" aria-labelledby="skills-title">
-        <div className="container">
-          <div className="section-head" data-reveal>
-            <span className="eyebrow">Stack &amp; Experience</span>
-            <h2 id="skills-title" className="h2">
-              Engineering Tools &amp; Technologies
-            </h2>
-            <p className="lede">
-              Practical toolkit refined through production backends, interactive web interfaces, and native game engines.
-            </p>
-          </div>
+    <section id="skills" className="section" aria-labelledby="skills-title">
+      <div className="container">
+        <div className="section-head" data-reveal>
+          <span className="eyebrow">Stack &amp; Experience</span>
+          <h2 id="skills-title" className="h2">
+            Engineering Tools &amp; Technologies
+          </h2>
+          <p className="lede">
+            Practical toolkit refined through production backends, interactive web interfaces, and native game engines.
+          </p>
+        </div>
 
+        {loading ? (
+          <div className="journey-groups">
+            {[...Array(3)].map((_, i) => (
+              <div key={i}>
+                <div className="sk sk-label" style={{ marginBottom: "1rem" }} />
+                <div className="journey-grid">
+                  {[...Array(4)].map((_, j) => (
+                    <div key={j} className="sk" style={{ height: 100, borderRadius: "var(--r-sm)" }} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
           <div className="journey-groups" data-reveal>
             {Object.entries(grouped).map(([category, items]) => (
               <div key={category} className="journey-group">
@@ -229,12 +245,12 @@ export default function Skills() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        )}
+      </div>
 
       {selected && (
         <SkillModal skill={selected} onClose={() => setSelected(null)} />
       )}
-    </>
+    </section>
   );
 }

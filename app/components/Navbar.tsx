@@ -31,19 +31,54 @@ export default function Navbar() {
 
   // Scroll-spy: section crossing the upper third of the viewport becomes active
   useEffect(() => {
+    const observed = new Set<Element>();
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: "-30% 0px -65% 0px" }
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setActive(e.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -50% 0px" }
     );
-    LINKS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) io.observe(el);
-    });
-    const onScroll = () => setScrolled(window.scrollY > 80);
+
+    const bind = () => {
+      LINKS.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (el && !observed.has(el)) {
+          io.observe(el);
+          observed.add(el);
+        }
+      });
+    };
+
+    bind();
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 80);
+      if (y < 80) {
+        setActive("hero");
+        return;
+      }
+      if (window.innerHeight + y >= document.documentElement.scrollHeight - 50) {
+        setActive("contact");
+        return;
+      }
+      bind();
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+
+    // MutationObserver to automatically bind any dynamically mounted sections
+    const mo = new MutationObserver(() => bind());
+    mo.observe(document.body, { childList: true, subtree: true });
+
     return () => {
       io.disconnect();
+      mo.disconnect();
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
@@ -86,7 +121,8 @@ export default function Navbar() {
               <li key={l.id} data-id={l.id}>
                 <a
                   href={`#${l.id}`}
-                  aria-current={active === l.id ? "true" : undefined}
+                  aria-current={active === l.id ? "true" : "false"}
+                  onClick={() => setActive(l.id)}
                 >
                   {l.label}
                 </a>
@@ -141,7 +177,10 @@ export default function Navbar() {
               <li key={l.id} style={{ "--i": i } as React.CSSProperties}>
                 <a
                   href={`#${l.id}`}
-                  onClick={closeSheet}
+                  onClick={() => {
+                    setActive(l.id);
+                    closeSheet();
+                  }}
                   aria-current={active === l.id ? "true" : undefined}
                 >
                   {l.label}

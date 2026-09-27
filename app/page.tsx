@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
 import HomeClient from './components/HomeClient';
-import { fetchProjects } from './lib/supabase';
+import { fetchProjects, fetchSkills } from './lib/supabase';
 
 export const revalidate = 3600; // ISR: regenerate every hour
 
@@ -19,7 +19,10 @@ export default async function Home() {
     ? 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_reza_thumbnail.webp'
     : 'https://rqbcrttxfhxmcaxiropg.supabase.co/storage/v1/object/public/storage/images/portofolio/portfolio_gorudentaiga_thumbnail.webp';
 
-  const projects = await fetchProjects();
+  const [projects, skills] = await Promise.all([
+    fetchProjects(),
+    fetchSkills(),
+  ]);
 
   return (
     <HomeClient
@@ -27,6 +30,7 @@ export default async function Home() {
       portfolioThumbnail={portfolioThumbnail}
       isPrivate={isPrivate}
       projects={projects}
+      skills={skills}
     />
   );
 }
