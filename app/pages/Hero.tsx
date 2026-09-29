@@ -32,7 +32,7 @@ export default function Hero({ displayName = "GorudenTaiga" }: HeroProps) {
             className="lede load"
             style={{ "--i": 2 } as React.CSSProperties}
           >
-            Software developer based in Yogyakarta. Specializing in high-throughput
+            Software developer based in Jakarta. Specializing in high-throughput
             Laravel backends, reactive Next.js applications, and native C++ gameplay systems
             in Unreal Engine 5.
           </p>
@@ -54,7 +54,7 @@ export default function Hero({ displayName = "GorudenTaiga" }: HeroProps) {
             style={{ "--i": 4 } as React.CSSProperties}
           >
             <span className="status-dot" aria-hidden="true" />
-            <span>Yogyakarta, ID</span>
+            <span>Jakarta, ID</span>
             <span aria-hidden="true">·</span>
             <span>Available for projects & collaboration</span>
           </p>
