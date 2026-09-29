@@ -301,18 +301,21 @@ section[id] { scroll-margin-top: 96px; }
 
 /* Mobile nav sheet (dialog) */
 .sheet {
-  margin: 0; width: 100%; max-width: 100%; height: auto; max-height: 100dvh;
+  position: fixed; inset: 0;
+  margin: 0; width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh;
   border: 0; padding: 0; background: transparent; color: inherit;
   opacity: 0; transform: translateY(-16px);
+  pointer-events: none;
   transition: opacity 250ms ease, transform 350ms var(--ease), overlay 350ms allow-discrete, display 350ms allow-discrete;
 }
-.sheet[open] { opacity: 1; transform: none; }
+.sheet[open] { opacity: 1; transform: none; pointer-events: auto; }
 @starting-style { .sheet[open] { opacity: 0; transform: translateY(-16px); } }
 .sheet::backdrop { background: rgba(10, 9, 20, 0.5); backdrop-filter: blur(4px); }
 .sheet-inner {
   margin: 12px; padding: 12px 12px 20px; border-radius: var(--r-lg);
   background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow);
   display: grid; gap: 1rem;
+  pointer-events: auto;
 }
 .sheet-head { display: flex; justify-content: space-between; align-items: center; }
 .sheet ul { display: grid; }

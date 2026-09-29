@@ -105,58 +105,72 @@ export default function Navbar() {
   };
 
   const closeSheet = () => sheetRef.current?.close();
+
+  const navigateTo = (id: string) => {
+    setActive(id);
+    closeSheet();
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  };
+
   const monogram = "GT";
 
   return (
-    <header className={`nav-wrap${scrolled ? " is-scrolled" : ""}`}>
-      <nav className="nav" aria-label="Primary">
-        <a href="#hero" className="monogram" aria-label="GorudenTaiga — back to top">
-          {monogram}
-        </a>
-
-        {/* Desktop links with sliding active indicator */}
-        <div className="nav-links">
-          <ul ref={listRef}>
-            {LINKS.map((l) => (
-              <li key={l.id} data-id={l.id}>
-                <a
-                  href={`#${l.id}`}
-                  aria-current={active === l.id ? "true" : "false"}
-                  onClick={() => setActive(l.id)}
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          {/* Highlighted copy — clipped to active link via clip-path */}
-          <ul ref={overlayRef} className="nav-overlay" aria-hidden="true">
-            {LINKS.map((l) => (
-              <li key={l.id}><span>{l.label}</span></li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="nav-actions">
-          <button
-            className="icon-btn"
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-          >
-            {theme === "dark" ? <Sun /> : <Moon />}
-          </button>
-          <a href="#contact" className="btn btn-primary btn-sm hide-mobile">
-            Get in touch
+    <>
+      <header className={`nav-wrap${scrolled ? " is-scrolled" : ""}`}>
+        <nav className="nav" aria-label="Primary">
+          <a href="#hero" className="monogram" aria-label="GorudenTaiga — back to top">
+            {monogram}
           </a>
-          <button
-            className="icon-btn show-mobile"
-            onClick={() => sheetRef.current?.showModal()}
-            aria-label="Open menu"
-          >
-            <Menu />
-          </button>
-        </div>
-      </nav>
+
+          {/* Desktop links with sliding active indicator */}
+          <div className="nav-links">
+            <ul ref={listRef}>
+              {LINKS.map((l) => (
+                <li key={l.id} data-id={l.id}>
+                  <a
+                    href={`#${l.id}`}
+                    aria-current={active === l.id ? "true" : "false"}
+                    onClick={() => setActive(l.id)}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {/* Highlighted copy — clipped to active link via clip-path */}
+            <ul ref={overlayRef} className="nav-overlay" aria-hidden="true">
+              {LINKS.map((l) => (
+                <li key={l.id}><span>{l.label}</span></li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="nav-actions">
+            <button
+              className="icon-btn"
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            >
+              {theme === "dark" ? <Sun /> : <Moon />}
+            </button>
+            <a href="#contact" className="btn btn-primary btn-sm hide-mobile">
+              Get in touch
+            </a>
+            <button
+              className="icon-btn show-mobile"
+              onClick={() => sheetRef.current?.showModal()}
+              aria-label="Open menu"
+            >
+              <Menu />
+            </button>
+          </div>
+        </nav>
+      </header>
 
       {/* Mobile sheet — native <dialog> for focus-trap + backdrop */}
       <dialog
@@ -177,9 +191,9 @@ export default function Navbar() {
               <li key={l.id} style={{ "--i": i } as React.CSSProperties}>
                 <a
                   href={`#${l.id}`}
-                  onClick={() => {
-                    setActive(l.id);
-                    closeSheet();
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(l.id);
                   }}
                   aria-current={active === l.id ? "true" : undefined}
                 >
@@ -188,11 +202,18 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <a href="#contact" onClick={closeSheet} className="btn btn-primary">
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("contact");
+            }}
+            className="btn btn-primary"
+          >
             Get in touch
           </a>
         </div>
       </dialog>
-    </header>
+    </>
   );
 }
